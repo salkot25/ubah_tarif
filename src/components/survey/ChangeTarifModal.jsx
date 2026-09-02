@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Printer, FileEdit, Plus, Trash, Loader2 } from 'lucide-react';
+import { X, Printer, FileEdit, FileText, Plus, Trash, Loader2 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
