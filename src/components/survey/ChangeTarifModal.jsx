@@ -245,12 +245,12 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex-shrink-0">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-400 rounded-lg">
-              <FileEdit size={20} />
+            <div className="p-2 bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400 rounded-lg">
+              <FileText size={20} />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">Cetak Form Permohonan Perubahan Tarif</h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Lengkapi data inventarisasi alat dan administrasi permohonan</p>
+              <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">Cetak Live PDF — Formulir Pemeriksaan Peruntukan Tenaga Listrik</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Pratinjau dokumen A4 realtime sebelum dicetak atau disimpan sebagai PDF</p>
             </div>
           </div>
           <button
@@ -625,8 +625,8 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
             <Button variant="secondary" onClick={onClose}>
               Batal
             </Button>
-            <Button variant="primary" icon={Printer} onClick={handlePrint} disabled={loading}>
-              Cetak / Simpan PDF
+            <Button variant="success" icon={Printer} onClick={handlePrint} disabled={loading}>
+              Cetak Live PDF
             </Button>
           </div>
         </div>

@@ -442,7 +442,7 @@ export default function PermohonanListPage() {
                       <button
                         onClick={() => setPrintModal({ open: true, data: row })}
                         className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-slate-700 transition-colors"
-                        title="Preview & Cetak Form Pemeriksaan"
+                        title="Cetak Live PDF"
                       >
                         <Printer size={16} />
                       </button>
@@ -552,7 +552,7 @@ export default function PermohonanListPage() {
                           <button
                             onClick={() => setPrintModal({ open: true, data: row })}
                             className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-slate-700 transition-colors"
-                            title="Preview & Cetak Form Pemeriksaan"
+                            title="Cetak Live PDF"
                           >
                             <Printer size={15} />
                           </button>
@@ -970,7 +970,7 @@ export default function PermohonanListPage() {
                   if (data) setPrintModal({ open: true, data });
                 }}
               >
-                Preview & Cetak Formulir
+                Cetak Live PDF
               </Button>
               <Button
                 variant="secondary"
