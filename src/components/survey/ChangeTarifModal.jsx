@@ -312,7 +312,7 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
               {/* The A4 change-tarif request form page representation */}
               <div
                 id="printable-change-tarif"
-                className="w-[210mm] min-h-[297mm] bg-white shadow-2xl p-[10mm_12mm] text-black text-[8pt] leading-snug font-sans relative flex flex-col justify-between print-border-black select-none transform scale-[0.78] xl:scale-[0.84] origin-top my-1"
+                className="w-[210mm] min-h-[297mm] bg-white shadow-2xl p-[10mm_12mm] text-black text-[8pt] leading-snug font-sans relative flex flex-col print-border-black select-none transform scale-[0.78] xl:scale-[0.84] origin-top my-1"
                 style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
               >
                 {/* Header */}
@@ -522,13 +522,13 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                 </p>
 
                 {/* Signatures section (Table 6 - 3 columns x 2 rows borderless layout) */}
-                <div className="mt-auto w-full text-[8pt]">
+                <div className="mt-3 w-full text-[8.5pt]">
                   {/* Row 1 Signatures */}
-                  <div className="grid grid-cols-3 text-center min-h-[75px]">
+                  <div className="grid grid-cols-3 text-center min-h-[85px]">
                     {/* Pelanggan */}
                     <div className="p-0.5 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Pelanggan/Pemilik Persil</span>
-                      <div className="h-8 flex items-center justify-center relative my-0.5">
+                      <div className="h-11 flex items-center justify-center relative my-1">
                         {/* Area TTD Fisik Pelanggan */}
                       </div>
                       <span className="font-bold underline uppercase truncate">{namaPelanggan || '___________________________'}</span>
@@ -537,12 +537,12 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                     {/* Petugas */}
                     <div className="p-0.5 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Petugas Pemeriksa</span>
-                      <div className="h-8 flex items-center justify-center relative my-0.5">
+                      <div className="h-11 flex items-center justify-center relative my-1">
                         {sertakanTtd && ttdPetugas ? (
                           <img
                             src={ttdPetugas}
                             alt="Ttd Petugas"
-                            className="h-8 max-w-[100px] object-contain mix-blend-multiply"
+                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
                           />
                         ) : null}
                       </div>
@@ -552,12 +552,12 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                     {/* TL TE LAY GAN */}
                     <div className="p-0.5 flex flex-col justify-between">
                       <span className="font-bold leading-tight">TL TE LAY GAN</span>
-                      <div className="h-8 flex items-center justify-center relative my-0.5">
+                      <div className="h-11 flex items-center justify-center relative my-1">
                         {sertakanTtd && ttdTl ? (
                           <img
                             src={ttdTl}
                             alt="Ttd TL"
-                            className="h-8 max-w-[100px] object-contain mix-blend-multiply"
+                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
                           />
                         ) : null}
                       </div>
@@ -566,16 +566,16 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                   </div>
 
                   {/* Row 2 Signatures */}
-                  <div className="grid grid-cols-3 text-center min-h-[75px] mt-1">
+                  <div className="grid grid-cols-3 text-center min-h-[85px] mt-4">
                     {/* MUP3 */}
                     <div className="p-0.5 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Mengesahkan,<br />MUP3 Salatiga</span>
-                      <div className="h-8 flex items-center justify-center relative my-0.5">
+                      <div className="h-11 flex items-center justify-center relative my-1">
                         {sertakanTtd && ttdMup3 ? (
                           <img
                             src={ttdMup3}
                             alt="Ttd MUP3"
-                            className="h-8 max-w-[100px] object-contain mix-blend-multiply"
+                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
                           />
                         ) : null}
                       </div>
@@ -585,12 +585,12 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                     {/* ASMAN NPS */}
                     <div className="p-0.5 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Mengetahui,<br />ASMAN NPS</span>
-                      <div className="h-8 flex items-center justify-center relative my-0.5">
+                      <div className="h-11 flex items-center justify-center relative my-1">
                         {sertakanTtd && ttdAsman ? (
                           <img
                             src={ttdAsman}
                             alt="Ttd ASMAN"
-                            className="h-8 max-w-[100px] object-contain mix-blend-multiply"
+                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
                           />
                         ) : null}
                       </div>
@@ -600,12 +600,12 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                     {/* MULP */}
                     <div className="p-0.5 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Menyetujui,<br />MULP Salatiga Kota</span>
-                      <div className="h-8 flex items-center justify-center relative my-0.5">
+                      <div className="h-11 flex items-center justify-center relative my-1">
                         {sertakanTtd && ttdMulp ? (
                           <img
                             src={ttdMulp}
                             alt="Ttd MULP"
-                            className="h-8 max-w-[100px] object-contain mix-blend-multiply"
+                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
                           />
                         ) : null}
                       </div>

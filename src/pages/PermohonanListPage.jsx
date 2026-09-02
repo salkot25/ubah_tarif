@@ -1470,25 +1470,25 @@ function LiveChangeTarifSheet({ formData, appliancesRT = [], appliancesPL = [], 
       </p>
 
       {/* Signatures section */}
-      <div className="mt-auto w-full text-[8.5pt]">
-        <div className="grid grid-cols-3 text-center min-h-[95px]">
-          <div className="p-1 flex flex-col justify-between">
+      <div className="mt-3 w-full text-[8.5pt]">
+        <div className="grid grid-cols-3 text-center min-h-[85px]">
+          <div className="p-0.5 flex flex-col justify-between">
             <span className="font-bold leading-tight">Pelanggan/Pemilik Persil</span>
-            <div className="h-10 flex items-center justify-center relative my-0.5"></div>
+            <div className="h-11 flex items-center justify-center relative my-1"></div>
             <span className="font-bold underline uppercase truncate">{formData.NAMA || '___________________________'}</span>
           </div>
-          <div className="p-1 flex flex-col justify-between">
+          <div className="p-0.5 flex flex-col justify-between">
             <span className="font-bold leading-tight">Petugas Pemeriksa</span>
-            <div className="h-10 flex items-center justify-center relative my-0.5">
+            <div className="h-11 flex items-center justify-center relative my-1">
               {ttdPetugas ? (
                 <img src={ttdPetugas} alt="Ttd Petugas" className="h-10 max-w-[110px] object-contain mix-blend-multiply" />
               ) : null}
             </div>
             <span className="font-bold underline uppercase truncate">{petugasSurvey || pejabatTl || '___________________________'}</span>
           </div>
-          <div className="p-1 flex flex-col justify-between">
+          <div className="p-0.5 flex flex-col justify-between">
             <span className="font-bold leading-tight">TL TE LAY GAN</span>
-            <div className="h-10 flex items-center justify-center relative my-0.5">
+            <div className="h-11 flex items-center justify-center relative my-1">
               {ttdTl ? (
                 <img src={ttdTl} alt="Ttd TL" className="h-10 max-w-[110px] object-contain mix-blend-multiply" />
               ) : null}
@@ -1497,28 +1497,28 @@ function LiveChangeTarifSheet({ formData, appliancesRT = [], appliancesPL = [], 
           </div>
         </div>
 
-        <div className="grid grid-cols-3 text-center min-h-[95px] mt-2">
-          <div className="p-1 flex flex-col justify-between">
+        <div className="grid grid-cols-3 text-center min-h-[85px] mt-4">
+          <div className="p-0.5 flex flex-col justify-between">
             <span className="font-bold leading-tight">Mengesahkan,<br />MUP3 Salatiga</span>
-            <div className="h-10 flex items-center justify-center relative my-0.5">
+            <div className="h-11 flex items-center justify-center relative my-1">
               {ttdMup3 ? (
                 <img src={ttdMup3} alt="Ttd MUP3" className="h-10 max-w-[110px] object-contain mix-blend-multiply" />
               ) : null}
             </div>
             <span className="font-bold underline uppercase truncate">{pejabatMup3 || '—'}</span>
           </div>
-          <div className="p-1 flex flex-col justify-between">
+          <div className="p-0.5 flex flex-col justify-between">
             <span className="font-bold leading-tight">Mengetahui,<br />ASMAN NPS</span>
-            <div className="h-10 flex items-center justify-center relative my-0.5">
+            <div className="h-11 flex items-center justify-center relative my-1">
               {ttdAsman ? (
                 <img src={ttdAsman} alt="Ttd ASMAN" className="h-10 max-w-[110px] object-contain mix-blend-multiply" />
               ) : null}
             </div>
             <span className="font-bold underline uppercase truncate">{pejabatAsman || '—'}</span>
           </div>
-          <div className="p-1 flex flex-col justify-between">
+          <div className="p-0.5 flex flex-col justify-between">
             <span className="font-bold leading-tight">Menyetujui,<br />MULP Salatiga Kota</span>
-            <div className="h-10 flex items-center justify-center relative my-0.5">
+            <div className="h-11 flex items-center justify-center relative my-1">
               {ttdMulp ? (
                 <img src={ttdMulp} alt="Ttd MULP" className="h-10 max-w-[110px] object-contain mix-blend-multiply" />
               ) : null}
