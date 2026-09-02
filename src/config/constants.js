@@ -1,7 +1,4 @@
-// ─── API URL ─────────────────────────────────────────────────────────────────
-// Ganti dengan URL Google Apps Script setelah deploy
-// Format: https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
-export const GAS_URL = import.meta.env.VITE_GAS_URL || 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+export const GAS_URL = import.meta.env.VITE_GAS_URL || 'https://script.google.com/macros/s/AKfycbycxFteDE8hDFs5cFzxM6aKyoQwfxD3r2C93fs3dtNejR21UBz5QJf-wAvkZGATnmIwmQ/exec';
 
 // ─── DROPDOWN OPTIONS ─────────────────────────────────────────────────────────
 
