@@ -9,11 +9,12 @@ import { Spinner, PageLoader } from '../components/ui/Spinner';
 import { useToast } from '../components/ui/Toast';
 import { useAuth } from '../context/AuthContext';
 import { getUsers, saveUser, deleteUser } from '../services/api';
+import { CompactSignatureButton, SignatureSlot } from '../components/ui/SignatureUploader';
 import {
   User, Briefcase, MapPin, Building, Save, RotateCcw,
   ShieldCheck, ClipboardCheck, FileText, Calendar, Users,
   UserPlus, Edit2, Trash2, Key, CheckCircle, XCircle, Settings,
-  List, LayoutGrid, Plus
+  List, LayoutGrid, Plus, PenTool
 } from 'lucide-react';
 
 const DEFAULT_SETTINGS = {
@@ -25,7 +26,12 @@ const DEFAULT_SETTINGS = {
   SETTING_KANTOR_ULP: 'ULP Salatiga Kota',
   SETTING_ALAMAT_KANTOR: 'Jl. Diponegoro No. 19 Salatiga',
   SETTING_NO_SURAT_TUGAS: '0005.STg/SDM.02/07/F03110000/2026',
-  SETTING_TANGGAL_SURAT_TUGAS: '05 Januari 2026'
+  SETTING_TANGGAL_SURAT_TUGAS: '05 Januari 2026',
+  SETTING_TTD_MUP3: '',
+  SETTING_TTD_ASMAN: '',
+  SETTING_TTD_MULP: '',
+  SETTING_TTD_TL: '',
+  SETTING_TTD_PETUGAS_SURVEY: ''
 };
 
 export default function SettingsPage() {
@@ -62,6 +68,10 @@ export default function SettingsPage() {
   // Delete Confirm State
   const [deleteConfirm, setDeleteConfirm] = useState({ open: false, username: '' });
   const [deleteSubmitting, setDeleteSubmitting] = useState(false);
+
+  // Settings & TTD Confirmation Modals
+  const [clearAllTtdModalOpen, setClearAllTtdModalOpen] = useState(false);
+  const [resetDefaultModalOpen, setResetDefaultModalOpen] = useState(false);
 
   // Load users when tab changes to 'users'
   useEffect(() => {
@@ -105,14 +115,30 @@ export default function SettingsPage() {
     }
   };
 
-  const handleResetSettings = () => {
-    if (window.confirm('Apakah Anda yakin ingin merestore semua pejabat ke nama default bawaan?')) {
-      setSettings(DEFAULT_SETTINGS);
-      Object.keys(DEFAULT_SETTINGS).forEach(key => {
-        localStorage.setItem(key, DEFAULT_SETTINGS[key]);
-      });
-      toast.success('Pengaturan telah di-reset ke nilai default');
-    }
+  const executeResetSettings = () => {
+    setSettings(DEFAULT_SETTINGS);
+    Object.keys(DEFAULT_SETTINGS).forEach(key => {
+      localStorage.setItem(key, DEFAULT_SETTINGS[key]);
+    });
+    setResetDefaultModalOpen(false);
+    toast.success('Pengaturan telah di-reset ke nilai default');
+  };
+
+  const executeClearAllSignatures = () => {
+    const updated = {
+      ...settings,
+      SETTING_TTD_MUP3: '',
+      SETTING_TTD_ASMAN: '',
+      SETTING_TTD_MULP: '',
+      SETTING_TTD_TL: '',
+      SETTING_TTD_PETUGAS_SURVEY: ''
+    };
+    setSettings(updated);
+    ['SETTING_TTD_MUP3', 'SETTING_TTD_ASMAN', 'SETTING_TTD_MULP', 'SETTING_TTD_TL', 'SETTING_TTD_PETUGAS_SURVEY'].forEach(k => {
+      localStorage.removeItem(k);
+    });
+    setClearAllTtdModalOpen(false);
+    toast.success('Semua tanda tangan digital berhasil dihapus');
   };
 
   // User Form Handlers
@@ -192,11 +218,13 @@ export default function SettingsPage() {
     <div className="space-y-6">
       {/* Tab Navigation selectors */}
       {currentUser?.role === 'admin' && (
-        <div className="flex gap-1 bg-slate-200/60 p-1 rounded-xl border border-slate-200 max-w-sm">
+        <div className="flex gap-1 bg-slate-200/60 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 max-w-sm">
           <button
             onClick={() => setActiveTab('pejabat')}
             className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-bold rounded-lg transition-all ${
-              activeTab === 'pejabat' ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-600 hover:text-slate-800'
+              activeTab === 'pejabat'
+                ? 'bg-white dark:bg-slate-700 text-blue-700 dark:text-blue-400 shadow-sm'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
             }`}
           >
             <Settings size={14} />
@@ -205,7 +233,9 @@ export default function SettingsPage() {
           <button
             onClick={() => setActiveTab('users')}
             className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-bold rounded-lg transition-all ${
-              activeTab === 'users' ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-600 hover:text-slate-800'
+              activeTab === 'users'
+                ? 'bg-white dark:bg-slate-700 text-blue-700 dark:text-blue-400 shadow-sm'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
             }`}
           >
             <Users size={14} />
@@ -221,75 +251,130 @@ export default function SettingsPage() {
             
             {/* Card 1: Pejabat Permohonan */}
             <Card className="p-5 space-y-4">
-              <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-slate-800 font-bold text-sm uppercase tracking-wider">
-                <ClipboardCheck size={16} className="text-blue-600" />
+              <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-slate-100 font-bold text-sm uppercase tracking-wider">
+                <ClipboardCheck size={16} className="text-blue-600 dark:text-blue-400" />
                 <span>Pejabat Formulir Permohonan (Ubah Tarif)</span>
               </div>
               
-              <div className="space-y-3">
+              <div className="space-y-3.5">
+                {/* MUP3 */}
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">Mengesahkan (MUP3 Salatiga)</label>
-                  <Input
-                    leftIcon={User}
-                    value={settings.SETTING_MUP3}
-                    onChange={e => handleSettingChange('SETTING_MUP3', e.target.value)}
-                    placeholder="Nama Manajer UP3"
-                    required
-                  />
+                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">Mengesahkan (MUP3 Salatiga)</label>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 min-w-0">
+                      <Input
+                        leftIcon={User}
+                        value={settings.SETTING_MUP3}
+                        onChange={e => handleSettingChange('SETTING_MUP3', e.target.value)}
+                        placeholder="Nama Manajer UP3"
+                        required
+                      />
+                    </div>
+                    <CompactSignatureButton
+                      value={settings.SETTING_TTD_MUP3}
+                      onChange={val => handleSettingChange('SETTING_TTD_MUP3', val)}
+                      modalTitle="Tanda Tangan MUP3 Salatiga"
+                    />
+                  </div>
                 </div>
+
+                {/* ASMAN */}
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">Mengetahui (ASMAN NPS)</label>
-                  <Input
-                    leftIcon={ShieldCheck}
-                    value={settings.SETTING_ASMAN}
-                    onChange={e => handleSettingChange('SETTING_ASMAN', e.target.value)}
-                    placeholder="Nama Assistant Manager Niaga & Pemasaran"
-                    required
-                  />
+                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">Mengetahui (ASMAN NPS)</label>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 min-w-0">
+                      <Input
+                        leftIcon={ShieldCheck}
+                        value={settings.SETTING_ASMAN}
+                        onChange={e => handleSettingChange('SETTING_ASMAN', e.target.value)}
+                        placeholder="Nama Assistant Manager Niaga & Pemasaran"
+                        required
+                      />
+                    </div>
+                    <CompactSignatureButton
+                      value={settings.SETTING_TTD_ASMAN}
+                      onChange={val => handleSettingChange('SETTING_TTD_ASMAN', val)}
+                      modalTitle="Tanda Tangan ASMAN NPS"
+                    />
+                  </div>
                 </div>
+
+                {/* MULP */}
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">Menyetujui (MULP Salatiga Kota)</label>
-                  <Input
-                    leftIcon={Building}
-                    value={settings.SETTING_MULP}
-                    onChange={e => handleSettingChange('SETTING_MULP', e.target.value)}
-                    placeholder="Nama Manajer ULP"
-                    required
-                  />
+                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">Menyetujui (MULP Salatiga Kota)</label>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 min-w-0">
+                      <Input
+                        leftIcon={Building}
+                        value={settings.SETTING_MULP}
+                        onChange={e => handleSettingChange('SETTING_MULP', e.target.value)}
+                        placeholder="Nama Manajer ULP"
+                        required
+                      />
+                    </div>
+                    <CompactSignatureButton
+                      value={settings.SETTING_TTD_MULP}
+                      onChange={val => handleSettingChange('SETTING_TTD_MULP', val)}
+                      modalTitle="Tanda Tangan MULP Salatiga Kota"
+                    />
+                  </div>
                 </div>
+
+                {/* TL */}
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">TL TE LAY GAN (Petugas)</label>
-                  <Input
-                    leftIcon={Briefcase}
-                    value={settings.SETTING_TL}
-                    onChange={e => handleSettingChange('SETTING_TL', e.target.value)}
-                    placeholder="Nama Team Leader Transaksi Energi"
-                    required
-                  />
+                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">TL TE LAY GAN (Petugas)</label>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 min-w-0">
+                      <Input
+                        leftIcon={Briefcase}
+                        value={settings.SETTING_TL}
+                        onChange={e => handleSettingChange('SETTING_TL', e.target.value)}
+                        placeholder="Nama Team Leader Transaksi Energi"
+                        required
+                      />
+                    </div>
+                    <CompactSignatureButton
+                      value={settings.SETTING_TTD_TL}
+                      onChange={val => handleSettingChange('SETTING_TTD_TL', val)}
+                      modalTitle="Tanda Tangan TL TE LAY GAN"
+                    />
+                  </div>
                 </div>
               </div>
             </Card>
 
             {/* Card 2: Pejabat Survey & ULP */}
             <Card className="p-5 space-y-4">
-              <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-slate-800 font-bold text-sm uppercase tracking-wider">
-                <ShieldCheck size={16} className="text-emerald-600" />
+              <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-slate-100 font-bold text-sm uppercase tracking-wider">
+                <ShieldCheck size={16} className="text-emerald-600 dark:text-emerald-400" />
                 <span>Pejabat Berita Acara & Kantor ULP</span>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-3.5">
+                {/* Petugas Survey */}
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">Petugas Pemeriksa Lapangan</label>
-                  <Input
-                    leftIcon={User}
-                    value={settings.SETTING_PETUGAS_SURVEY}
-                    onChange={e => handleSettingChange('SETTING_PETUGAS_SURVEY', e.target.value)}
-                    placeholder="Nama petugas survey lapangan"
-                    required
-                  />
+                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">Petugas Pemeriksa Lapangan</label>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 min-w-0">
+                      <Input
+                        leftIcon={User}
+                        value={settings.SETTING_PETUGAS_SURVEY}
+                        onChange={e => handleSettingChange('SETTING_PETUGAS_SURVEY', e.target.value)}
+                        placeholder="Nama petugas survey lapangan"
+                        required
+                      />
+                    </div>
+                    <CompactSignatureButton
+                      value={settings.SETTING_TTD_PETUGAS_SURVEY}
+                      defaultAsset="./signature-petugas.png"
+                      onChange={val => handleSettingChange('SETTING_TTD_PETUGAS_SURVEY', val)}
+                      modalTitle="Tanda Tangan Petugas Survey Lapangan"
+                    />
+                  </div>
                 </div>
+
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">Unit Layanan Pelanggan (ULP)</label>
+                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">Unit Layanan Pelanggan (ULP)</label>
                   <Input
                     leftIcon={Building}
                     value={settings.SETTING_KANTOR_ULP}
@@ -299,7 +384,7 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-slate-500 block mb-1">Alamat Kantor ULP</label>
+                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">Alamat Kantor ULP</label>
                   <Input
                     leftIcon={MapPin}
                     value={settings.SETTING_ALAMAT_KANTOR}
@@ -310,7 +395,7 @@ export default function SettingsPage() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-semibold text-slate-500 block mb-1">No. Surat Tugas Default</label>
+                    <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">No. Surat Tugas Default</label>
                     <Input
                       leftIcon={FileText}
                       value={settings.SETTING_NO_SURAT_TUGAS}
@@ -320,7 +405,7 @@ export default function SettingsPage() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-semibold text-slate-500 block mb-1">Tgl Surat Tugas Default</label>
+                    <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">Tgl Surat Tugas Default</label>
                     <Input
                       leftIcon={Calendar}
                       value={settings.SETTING_TANGGAL_SURAT_TUGAS}
@@ -336,15 +421,26 @@ export default function SettingsPage() {
           </div>
 
           {/* Form Actions */}
-          <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-            <Button
-              type="button"
-              variant="secondary"
-              icon={RotateCcw}
-              onClick={handleResetSettings}
-            >
-              Reset Default
-            </Button>
+          <div className="flex flex-wrap gap-3 justify-between items-center bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700/70 shadow-sm transition-colors">
+            <div className="flex flex-wrap items-center gap-2">
+              <Button
+                type="button"
+                variant="secondary"
+                icon={RotateCcw}
+                onClick={() => setResetDefaultModalOpen(true)}
+              >
+                Reset Default
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                icon={Trash2}
+                onClick={() => setClearAllTtdModalOpen(true)}
+                className="text-red-600 dark:text-red-400 border-red-200 dark:border-red-900/60 hover:bg-red-50 dark:hover:bg-red-950/40 hover:border-red-300 dark:hover:border-red-700"
+              >
+                Hapus Semua TTD
+              </Button>
+            </div>
             <Button
               type="submit"
               variant="primary"
@@ -637,7 +733,7 @@ export default function SettingsPage() {
         </form>
       </Modal>
 
-      {/* Delete Confirmation Modal */}
+      {/* Delete User Confirmation Modal */}
       <Modal
         isOpen={deleteConfirm.open}
         onClose={() => setDeleteConfirm({ open: false, username: '' })}
@@ -662,13 +758,78 @@ export default function SettingsPage() {
           </>
         }
       >
-        <p className="text-sm text-slate-600">
+        <p className="text-sm text-slate-600 dark:text-slate-300">
           Apakah Anda yakin ingin menghapus akun user{' '}
-          <span className="font-semibold text-slate-800">@{deleteConfirm.username}</span>?
+          <span className="font-semibold text-slate-800 dark:text-slate-100">@{deleteConfirm.username}</span>?
         </p>
-        <p className="text-xs text-red-600 mt-2">
+        <p className="text-xs text-red-600 dark:text-red-400 mt-2">
           Akun ini akan dihapus secara permanen dari database spreadsheet dan tidak akan dapat melakukan login kembali.
         </p>
+      </Modal>
+
+      {/* Clear All Signatures Modal */}
+      <Modal
+        isOpen={clearAllTtdModalOpen}
+        onClose={() => setClearAllTtdModalOpen(false)}
+        title="Hapus Semua Tanda Tangan Digital"
+        size="sm"
+        footer={
+          <>
+            <Button
+              variant="secondary"
+              onClick={() => setClearAllTtdModalOpen(false)}
+            >
+              Batal
+            </Button>
+            <Button
+              variant="danger"
+              icon={Trash2}
+              onClick={executeClearAllSignatures}
+            >
+              Ya, Hapus Semua TTD
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-2">
+          <p className="text-sm text-slate-600 dark:text-slate-300">
+            Apakah Anda yakin ingin menghapus <strong className="text-slate-800 dark:text-slate-100">seluruh tanda tangan digital</strong> (MUP3, ASMAN, MULP, TL, dan Petugas)?
+          </p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/80 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700">
+            Tanda tangan yang tersimpan di browser akan dikosongkan. Anda dapat mengunggah tanda tangan baru kapan saja.
+          </p>
+        </div>
+      </Modal>
+
+      {/* Reset Default Pejabat Modal */}
+      <Modal
+        isOpen={resetDefaultModalOpen}
+        onClose={() => setResetDefaultModalOpen(false)}
+        title="Reset Pejabat ke Nilai Default"
+        size="sm"
+        footer={
+          <>
+            <Button
+              variant="secondary"
+              onClick={() => setResetDefaultModalOpen(false)}
+            >
+              Batal
+            </Button>
+            <Button
+              variant="primary"
+              icon={RotateCcw}
+              onClick={executeResetSettings}
+            >
+              Ya, Reset Default
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-2">
+          <p className="text-sm text-slate-600 dark:text-slate-300">
+            Apakah Anda yakin ingin mengembalikan seluruh nama pejabat, ULP, dan surat tugas ke <strong className="text-slate-800 dark:text-slate-100">pengaturan default bawaan</strong>?
+          </p>
+        </div>
       </Modal>
     </div>
   );

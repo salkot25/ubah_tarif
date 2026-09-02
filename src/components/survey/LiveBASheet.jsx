@@ -130,6 +130,7 @@ export default function LiveBASheet({ data, sertakanTtd = true }) {
   const kantorUlp = data.KANTOR_ULP || localStorage.getItem('SETTING_KANTOR_ULP') || 'ULP Salatiga Kota';
   const alamatKantor = data.ALAMAT_KANTOR || localStorage.getItem('SETTING_ALAMAT_KANTOR') || 'Jl. Diponegoro No. 19 Salatiga';
   const petugasNama = data.PETUGAS_NAMA || localStorage.getItem('SETTING_PETUGAS_SURVEY') || 'Fathur Rohim';
+  const ttdPetugas = localStorage.getItem('SETTING_TTD_PETUGAS_SURVEY') || './signature-petugas.png';
 
   // Get Suggested/Form Appointment dates
   let hariKembali = data.HARI_KEMBALI;
@@ -423,11 +424,11 @@ export default function LiveBASheet({ data, sertakanTtd = true }) {
             </div>
             {/* Signature Image */}
             <div className="h-10 w-full relative flex items-center justify-center my-1">
-              {sertakanTtd ? (
+              {sertakanTtd && (ttdPetugas || './signature-petugas.png') ? (
                 <img
-                  src="./signature-petugas.png"
+                  src={ttdPetugas || './signature-petugas.png'}
                   alt="Tanda Tangan Petugas"
-                  className="h-10 object-contain mix-blend-multiply"
+                  className="h-10 max-w-[120px] object-contain mix-blend-multiply"
                 />
               ) : (
                 <span className="text-[7.5pt] text-slate-400 italic">(Tanda Tangan Petugas)</span>

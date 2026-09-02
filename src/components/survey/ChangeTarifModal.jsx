@@ -76,6 +76,15 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
   const [pejabatAsman, setPejabatAsman] = useState(() => localStorage.getItem('SETTING_ASMAN') || 'MUHAMAD ALWI SOFIAN');
   const [pejabatMulp, setPejabatMulp] = useState(() => localStorage.getItem('SETTING_MULP') || 'ARIF SETYAWAN');
   const [pejabatTl, setPejabatTl] = useState(() => localStorage.getItem('SETTING_TL') || 'FATHUR ROHIM');
+  const [petugasSurvey, setPetugasSurvey] = useState(() => localStorage.getItem('SETTING_PETUGAS_SURVEY') || 'Fathur Rohim');
+
+  // Digital Signatures from Settings
+  const [ttdMup3, setTtdMup3] = useState(() => localStorage.getItem('SETTING_TTD_MUP3') || '');
+  const [ttdAsman, setTtdAsman] = useState(() => localStorage.getItem('SETTING_TTD_ASMAN') || '');
+  const [ttdMulp, setTtdMulp] = useState(() => localStorage.getItem('SETTING_TTD_MULP') || '');
+  const [ttdTl, setTtdTl] = useState(() => localStorage.getItem('SETTING_TTD_TL') || '');
+  const [ttdPetugas, setTtdPetugas] = useState(() => localStorage.getItem('SETTING_TTD_PETUGAS_SURVEY') || './signature-petugas.png');
+
   const [sertakanTtd, setSertakanTtd] = useState(true);
 
   const [tglPemeriksaan, setTglPemeriksaan] = useState(new Date().toISOString().slice(0, 10));
@@ -232,54 +241,54 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
         }
       ` }} />
 
-      <div className="relative w-full max-w-7xl h-[90vh] bg-slate-50 rounded-2xl border border-slate-200 shadow-2xl flex flex-col overflow-hidden animate-slide-up print:hidden">
+      <div className="relative w-full max-w-7xl h-[90vh] bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col overflow-hidden animate-slide-up print:hidden transition-colors">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-white flex-shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex-shrink-0">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-blue-50 text-blue-700 rounded-lg">
+            <div className="p-2 bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-400 rounded-lg">
               <FileEdit size={20} />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-slate-800">Cetak Form Permohonan Perubahan Tarif</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Lengkapi data inventarisasi alat dan administrasi permohonan</p>
+              <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">Cetak Form Permohonan Perubahan Tarif</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Lengkapi data inventarisasi alat dan administrasi permohonan</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             <X size={18} />
           </button>
         </div>
 
         {loading ? (
-          <div className="flex-1 bg-white flex items-center justify-center">
+          <div className="flex-1 bg-white dark:bg-slate-900 flex items-center justify-center">
             <div className="flex flex-col items-center gap-2">
               <Loader2 size={32} className="text-blue-600 animate-spin" />
-              <span className="text-sm text-slate-500 font-medium">Memuat data permohonan & survey...</span>
+              <span className="text-sm text-slate-500 dark:text-slate-400 font-medium">Memuat data permohonan & survey...</span>
             </div>
           </div>
         ) : (
           /* Modal Body (Split Screen) */
           <div className="flex-1 flex overflow-hidden">
             {/* Left Panel: Configuration Form */}
-            <div className="w-96 border-r border-slate-200 bg-white flex flex-col overflow-y-auto p-5 space-y-5 flex-shrink-0">
-              <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider pb-1 border-b border-slate-100">
+            <div className="w-96 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col overflow-y-auto p-5 space-y-5 flex-shrink-0">
+              <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider pb-1 border-b border-slate-100 dark:border-slate-800">
                 Informasi Cetak
               </h3>
 
-              <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 space-y-2">
-                <h4 className="text-xs font-bold text-blue-800 uppercase">Data Terkunci</h4>
-                <p className="text-xs text-blue-600 leading-relaxed">
+              <div className="bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 rounded-xl p-4 space-y-2">
+                <h4 className="text-xs font-bold text-blue-800 dark:text-blue-300 uppercase">Data Terkunci</h4>
+                <p className="text-xs text-blue-600 dark:text-blue-400 leading-relaxed">
                   Semua parameter permohonan, kelengkapan berkas, dan hasil survey ditarik langsung dari database utama (Google Sheets) dan bersifat read-only pada dialog cetak ini.
                 </p>
-                <p className="text-xs text-blue-600 leading-relaxed font-semibold">
+                <p className="text-xs text-blue-600 dark:text-blue-400 leading-relaxed font-semibold">
                   Guna melakukan perubahan data, silakan edit data melalui form Permohonan atau Survey terkait.
                 </p>
               </div>
 
-              <div className="space-y-3 pt-3 border-t border-slate-100">
-                <h4 className="text-xs font-semibold text-slate-700 uppercase">Pengaturan Cetak</h4>
+              <div className="space-y-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-200 uppercase">Pengaturan Cetak</h4>
                 
                 <div className="flex items-center gap-2 pt-1">
                   <input
@@ -287,9 +296,9 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                     id="sertakanTtd"
                     checked={sertakanTtd}
                     onChange={e => setSertakanTtd(e.target.checked)}
-                    className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 h-4 w-4"
+                    className="rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500 h-4 w-4 bg-white dark:bg-slate-800"
                   />
-                  <label htmlFor="sertakanTtd" className="text-xs font-medium text-slate-700 cursor-pointer">
+                  <label htmlFor="sertakanTtd" className="text-xs font-medium text-slate-700 dark:text-slate-300 cursor-pointer">
                     Sertakan Tanda Tangan Digital
                   </label>
                 </div>
@@ -297,7 +306,7 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
             </div>
 
             {/* Right Panel: Page Print Preview */}
-            <div className="flex-1 bg-slate-500 overflow-y-auto p-8 flex justify-center">
+            <div className="flex-1 bg-slate-500 dark:bg-slate-950 overflow-y-auto p-8 flex justify-center">
               {/* The A4 change-tarif request form page representation */}
               <div
                 id="printable-change-tarif"
@@ -515,47 +524,90 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                   {/* Row 1 Signatures */}
                   <div className="grid grid-cols-3 text-center min-h-[95px]">
                     {/* Pelanggan */}
-                    <div className="p-2 flex flex-col justify-between">
+                    <div className="p-1 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Pelanggan/Pemilik Persil</span>
-                      <span className="font-bold underline uppercase mt-6 truncate">{namaPelanggan || '___________________________'}</span>
+                      <div className="h-10 flex items-center justify-center relative my-0.5">
+                        {/* Area TTD Fisik Pelanggan */}
+                      </div>
+                      <span className="font-bold underline uppercase truncate">{namaPelanggan || '___________________________'}</span>
                     </div>
+
                     {/* Petugas */}
-                    <div className="p-2 flex flex-col justify-between">
+                    <div className="p-1 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Petugas Pemeriksa</span>
                       <div className="h-10 flex items-center justify-center relative my-0.5">
-                        {sertakanTtd ? (
+                        {sertakanTtd && (ttdPetugas || './signature-petugas.png') ? (
                           <img
-                            src="./signature-petugas.png"
+                            src={ttdPetugas || './signature-petugas.png'}
                             alt="Ttd Petugas"
-                            className="h-10 object-contain mix-blend-multiply"
+                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
                           />
                         ) : null}
                       </div>
-                      <span className="font-bold underline uppercase truncate">{pejabatTl || '___________________________'}</span>
+                      <span className="font-bold underline uppercase truncate">{petugasSurvey || pejabatTl || '___________________________'}</span>
                     </div>
+
                     {/* TL TE LAY GAN */}
-                    <div className="p-2 flex flex-col justify-between">
+                    <div className="p-1 flex flex-col justify-between">
                       <span className="font-bold leading-tight">TL TE LAY GAN</span>
-                      <span className="font-bold underline uppercase mt-6 truncate">{pejabatTl || '—'}</span>
+                      <div className="h-10 flex items-center justify-center relative my-0.5">
+                        {sertakanTtd && ttdTl ? (
+                          <img
+                            src={ttdTl}
+                            alt="Ttd TL"
+                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
+                          />
+                        ) : null}
+                      </div>
+                      <span className="font-bold underline uppercase truncate">{pejabatTl || '—'}</span>
                     </div>
                   </div>
 
                   {/* Row 2 Signatures */}
-                  <div className="grid grid-cols-3 text-center min-h-[95px] mt-2">
+                  <div className="grid grid-cols-3 text-center min-h-[95px] mt-1.5">
                     {/* MUP3 */}
-                    <div className="p-2 flex flex-col justify-between">
+                    <div className="p-1 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Mengesahkan,<br />MUP3 Salatiga</span>
-                      <span className="font-bold underline uppercase mt-6 truncate">{pejabatMup3 || '—'}</span>
+                      <div className="h-10 flex items-center justify-center relative my-0.5">
+                        {sertakanTtd && ttdMup3 ? (
+                          <img
+                            src={ttdMup3}
+                            alt="Ttd MUP3"
+                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
+                          />
+                        ) : null}
+                      </div>
+                      <span className="font-bold underline uppercase truncate">{pejabatMup3 || '—'}</span>
                     </div>
+
                     {/* ASMAN NPS */}
-                    <div className="p-2 flex flex-col justify-between">
+                    <div className="p-1 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Mengetahui,<br />ASMAN NPS</span>
-                      <span className="font-bold underline uppercase mt-6 truncate">{pejabatAsman || '—'}</span>
+                      <div className="h-10 flex items-center justify-center relative my-0.5">
+                        {sertakanTtd && ttdAsman ? (
+                          <img
+                            src={ttdAsman}
+                            alt="Ttd ASMAN"
+                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
+                          />
+                        ) : null}
+                      </div>
+                      <span className="font-bold underline uppercase truncate">{pejabatAsman || '—'}</span>
                     </div>
+
                     {/* MULP */}
-                    <div className="p-2 flex flex-col justify-between">
+                    <div className="p-1 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Menyetujui,<br />MULP Salatiga Kota</span>
-                      <span className="font-bold underline uppercase mt-6 truncate">{pejabatMulp || '—'}</span>
+                      <div className="h-10 flex items-center justify-center relative my-0.5">
+                        {sertakanTtd && ttdMulp ? (
+                          <img
+                            src={ttdMulp}
+                            alt="Ttd MULP"
+                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
+                          />
+                        ) : null}
+                      </div>
+                      <span className="font-bold underline uppercase truncate">{pejabatMulp || '—'}</span>
                     </div>
                   </div>
                 </div>
@@ -565,9 +617,9 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
         )}
 
         {/* Modal Footer */}
-        <div className="px-6 py-4 border-t border-slate-200 bg-white flex-shrink-0 flex items-center justify-between">
-          <p className="text-xs text-slate-500">
-            * Tekan <kbd className="px-1 py-0.5 bg-slate-100 rounded border font-mono">Ctrl + P</kbd> atau klik Cetak. Pilih tujuan <strong>Save as PDF</strong> di dialog browser untuk menyimpan.
+        <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex-shrink-0 flex items-center justify-between transition-colors">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            * Tekan <kbd className="px-1 py-0.5 bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 font-mono">Ctrl + P</kbd> atau klik Cetak. Pilih tujuan <strong>Save as PDF</strong> di dialog browser untuk menyimpan.
           </p>
           <div className="flex items-center gap-3">
             <Button variant="secondary" onClick={onClose}>
