@@ -222,14 +222,16 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
             margin: 0 auto !important;
             width: 210mm !important;
             height: 297mm !important;
-            padding: 12mm 15mm !important;
+            max-height: 297mm !important;
+            padding: 10mm 12mm !important;
             box-sizing: border-box !important;
             background: white !important;
             border: none !important;
             box-shadow: none !important;
             z-index: 9999999 !important;
-            font-size: 8.5pt !important;
+            font-size: 8pt !important;
             transform: none !important;
+            overflow: hidden !important;
           }
           .print-border-black {
             border-color: #000000 !important;
@@ -306,129 +308,129 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
             </div>
 
             {/* Right Panel: Page Print Preview */}
-            <div className="flex-1 bg-slate-500 dark:bg-slate-950 overflow-y-auto p-8 flex justify-center">
+            <div className="flex-1 bg-slate-600/90 dark:bg-slate-950 overflow-y-auto p-4 sm:p-6 flex justify-center items-start">
               {/* The A4 change-tarif request form page representation */}
               <div
                 id="printable-change-tarif"
-                className="w-[210mm] min-h-[297mm] bg-white shadow-2xl p-[15mm] text-black text-[9pt] leading-snug font-sans relative flex flex-col print-border-black"
+                className="w-[210mm] min-h-[297mm] bg-white shadow-2xl p-[10mm_12mm] text-black text-[8pt] leading-snug font-sans relative flex flex-col justify-between print-border-black select-none transform scale-[0.78] xl:scale-[0.84] origin-top my-1"
                 style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
               >
                 {/* Header */}
-                <div className="text-center border-b-2 border-black pb-2 mb-3">
-                  <h1 className="text-[12pt] font-black uppercase tracking-wide">
+                <div className="text-center border-b-2 border-black pb-1.5 mb-2">
+                  <h1 className="text-[11pt] font-black uppercase tracking-wide">
                     FORMULIR PEMERIKSAAN PERUNTUKAN TENAGA LISTRIK
                   </h1>
-                  <h2 className="text-[10pt] font-extrabold uppercase mt-0.5 tracking-normal">
+                  <h2 className="text-[9pt] font-extrabold uppercase mt-0.5 tracking-normal">
                     DARI TARIF NON SUBSIDI KE TARIF SUBSIDI DENGAN PERUBAHAN TARIF
                   </h2>
                 </div>
 
                 {/* Date line */}
-                <p className="text-justify text-[9pt] mb-3">
+                <p className="text-justify text-[8pt] mb-2 leading-tight">
                   Pada hari ini, <span className="font-bold">{dateInfo.dayName || '..........'}</span> Tanggal, <span className="font-bold">{tglPemeriksaan ? new Date(tglPemeriksaan).getDate() : '..........'}</span> Bulan, <span className="font-bold">{dateInfo.fullText.split('Bulan ')[1]?.split(' Tahun')[0] || '..........'}</span> Tahun <span className="font-bold">{tglPemeriksaan ? new Date(tglPemeriksaan).getFullYear() : '2026'}</span>, telah dilaksanakan pengecekan peruntukan tenaga listrik Pelanggan UP3 Salatiga ULP Salatiga Kota :
                 </p>
 
                 {/* Section 1: Data Administrasi */}
-                <div className="mb-3">
-                  <h3 className="font-bold text-[9pt] underline mb-1 uppercase tracking-wide">
+                <div className="mb-2">
+                  <h3 className="font-bold text-[8pt] underline mb-0.5 uppercase tracking-wide">
                     Data Administrasi (DIL AP2T) :
                   </h3>
-                  <table className="w-full border-collapse text-[9pt] border border-black">
+                  <table className="w-full border-collapse text-[8pt] border border-black">
                     <tbody>
                       <tr className="border-b border-black">
-                        <td className="w-[32%] px-3 py-1 font-bold bg-slate-50 border-r border-black">Nama Pelanggan</td>
-                        <td className="px-3 py-1 font-semibold">{namaPelanggan} / {idpel}</td>
+                        <td className="w-[32%] px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">Nama Pelanggan</td>
+                        <td className="px-2.5 py-0.5 font-semibold">{namaPelanggan} / {idpel}</td>
                       </tr>
                       <tr className="border-b border-black">
-                        <td className="px-3 py-1 font-bold bg-slate-50 border-r border-black">Alamat</td>
-                        <td className="px-3 py-1 text-[8.5pt] leading-tight">{alamat}</td>
+                        <td className="px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">Alamat</td>
+                        <td className="px-2.5 py-0.5 text-[7.5pt] leading-tight">{alamat}</td>
                       </tr>
                       <tr>
-                        <td className="px-3 py-1 font-bold bg-slate-50 border-r border-black">Tarif/Daya Lama</td>
-                        <td className="px-3 py-1 font-bold">{tarifLama} / {dayaLama}</td>
+                        <td className="px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">Tarif/Daya Lama</td>
+                        <td className="px-2.5 py-0.5 font-bold">{tarifLama} / {dayaLama}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
 
                 {/* Section 2: Data Permohonan */}
-                <div className="mb-3">
-                  <h3 className="font-bold text-[9pt] underline mb-1 uppercase tracking-wide">
+                <div className="mb-2">
+                  <h3 className="font-bold text-[8pt] underline mb-0.5 uppercase tracking-wide">
                     Data Permohonan Perubahan Tarif :
                   </h3>
-                  <table className="w-full border-collapse text-[9pt] border border-black">
+                  <table className="w-full border-collapse text-[8pt] border border-black">
                     <tbody>
                       <tr className="border-b border-black">
-                        <td className="w-[32%] px-3 py-1 font-bold bg-slate-50 border-r border-black">Media Permohonan</td>
-                        <td className="px-3 py-1 font-semibold">{mediaPermohonan || 'CC123'}</td>
+                        <td className="w-[32%] px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">Media Permohonan</td>
+                        <td className="px-2.5 py-0.5 font-semibold">{mediaPermohonan || 'CC123'}</td>
                       </tr>
                       <tr className="border-b border-black">
-                        <td className="px-3 py-1 font-bold bg-slate-50 border-r border-black">Tanggal Permohonan</td>
-                        <td className="px-3 py-1">{tglMohonFormatted}</td>
+                        <td className="px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">Tanggal Permohonan</td>
+                        <td className="px-2.5 py-0.5">{tglMohonFormatted}</td>
                       </tr>
                       <tr className="border-b border-black">
-                        <td className="px-3 py-1 font-bold bg-slate-50 border-r border-black">Nama Pemohon</td>
-                        <td className="px-3 py-1 font-semibold">{namaPemohon}</td>
+                        <td className="px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">Nama Pemohon</td>
+                        <td className="px-2.5 py-0.5 font-semibold">{namaPemohon}</td>
                       </tr>
                       <tr className="border-b border-black">
-                        <td className="px-3 py-1 font-bold bg-slate-50 border-r border-black">Alamat Pemohon</td>
-                        <td className="px-3 py-1 text-[8.5pt] leading-tight">{alamatPemohon}</td>
+                        <td className="px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">Alamat Pemohon</td>
+                        <td className="px-2.5 py-0.5 text-[7.5pt] leading-tight">{alamatPemohon}</td>
                       </tr>
                       <tr className="border-b border-black">
-                        <td className="px-3 py-1 font-bold bg-slate-50 border-r border-black">NIK Pemohon</td>
-                        <td className="px-3 py-1 font-mono">{nikPemohon || '—'}</td>
+                        <td className="px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">NIK Pemohon</td>
+                        <td className="px-2.5 py-0.5 font-mono">{nikPemohon || '—'}</td>
                       </tr>
                       <tr>
-                        <td className="px-3 py-1 font-bold bg-slate-50 border-r border-black">Tarif/Daya Baru</td>
-                        <td className="px-3 py-1 font-bold">{tarifBaru ? `${tarifBaru} / ${dayaBaru}` : '—'}</td>
+                        <td className="px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">Tarif/Daya Baru</td>
+                        <td className="px-2.5 py-0.5 font-bold">{tarifBaru ? `${tarifBaru} / ${dayaBaru}` : '—'}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
 
                 {/* Section 3: Data Cek Lapangan */}
-                <div className="mb-3">
-                  <h3 className="font-bold text-[9pt] underline mb-1 uppercase tracking-wide">
+                <div className="mb-2">
+                  <h3 className="font-bold text-[8pt] underline mb-0.5 uppercase tracking-wide">
                     Data Cek Lapangan :
                   </h3>
-                  <table className="w-full border-collapse text-[9pt] border border-black">
+                  <table className="w-full border-collapse text-[8pt] border border-black">
                     <tbody>
                       <tr className="border-b border-black">
-                        <td className="w-[32%] px-3 py-1 font-bold bg-slate-50 border-r border-black">Nama Pelanggan</td>
-                        <td className="px-3 py-1 font-semibold">{namaPelanggan} / {idpel}</td>
+                        <td className="w-[32%] px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">Nama Pelanggan</td>
+                        <td className="px-2.5 py-0.5 font-semibold">{namaPelanggan} / {idpel}</td>
                       </tr>
                       <tr className="border-b border-black">
-                        <td className="px-3 py-1 font-bold bg-slate-50 border-r border-black">Alamat Pelanggan</td>
-                        <td className="px-3 py-1 text-[8.5pt] leading-tight">{alamat}</td>
+                        <td className="px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">Alamat Pelanggan</td>
+                        <td className="px-2.5 py-0.5 text-[7.5pt] leading-tight">{alamat}</td>
                       </tr>
                       <tr className="border-b border-black">
-                        <td className="px-3 py-1 font-bold bg-slate-50 border-r border-black">NIK Pelanggan</td>
-                        <td className="px-3 py-1 font-mono">{nikPelanggan || '—'}</td>
+                        <td className="px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">NIK Pelanggan</td>
+                        <td className="px-2.5 py-0.5 font-mono">{nikPelanggan || '—'}</td>
                       </tr>
                       <tr className="border-b border-black">
-                        <td className="px-3 py-1 font-bold bg-slate-50 border-r border-black">No Telepon/HP/Email Pelanggan</td>
-                        <td className="px-3 py-1 font-mono">{noTelp || '—'}</td>
+                        <td className="px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">No Telepon/HP/Email Pelanggan</td>
+                        <td className="px-2.5 py-0.5 font-mono">{noTelp || '—'}</td>
                       </tr>
                       <tr className="border-b border-black">
-                        <td className="px-3 py-1 font-bold bg-slate-50 border-r border-black">Peruntukan listrik</td>
-                        <td className="px-3 py-1 font-bold italic">{peruntukanLap || 'Rumah Tinggal'}</td>
+                        <td className="px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">Peruntukan listrik</td>
+                        <td className="px-2.5 py-0.5 font-bold italic">{peruntukanLap || 'Rumah Tinggal'}</td>
                       </tr>
                       <tr>
-                        <td className="px-3 py-1 font-bold bg-slate-50 border-r border-black">Status Persil/bangunan</td>
-                        <td className="px-3 py-1 font-medium">{statusPersil || 'Milik Sendiri'}</td>
+                        <td className="px-2.5 py-0.5 font-bold bg-slate-50 border-r border-black">Status Persil/bangunan</td>
+                        <td className="px-2.5 py-0.5 font-medium">{statusPersil || 'Milik Sendiri'}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
 
                 {/* Section 4: Dokumen Pendukung */}
-                <div className="mb-3">
-                  <table className="w-[65%] border border-black border-collapse text-[8.5pt]">
+                <div className="mb-2">
+                  <table className="w-[65%] border border-black border-collapse text-[8pt]">
                     <thead>
                       <tr className="bg-slate-100 text-center font-bold">
-                        <th className="border border-black py-1 px-2 text-left">Dokumen Pendukung</th>
-                        <th className="border border-black py-1 w-[22%]">Ada</th>
-                        <th className="border border-black py-1 w-[22%]">Tidak Ada</th>
+                        <th className="border border-black py-0.5 px-2 text-left">Dokumen Pendukung</th>
+                        <th className="border border-black py-0.5 w-[22%]">Ada</th>
+                        <th className="border border-black py-0.5 w-[22%]">Tidak Ada</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -452,25 +454,25 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                 </div>
 
                 {/* Section 5: Appliances Table */}
-                <div className="mb-3">
-                  <table className="w-full border border-black border-collapse text-[8pt]">
+                <div className="mb-2">
+                  <table className="w-full border border-black border-collapse text-[7pt]">
                     <thead>
                       <tr className="bg-slate-100 text-center font-bold">
-                        <th colSpan={8} className="border border-black py-0.5 text-[8.5pt]">PERUNTUKAN</th>
+                        <th colSpan={8} className="border border-black py-0.5 text-[7.5pt]">PERUNTUKAN</th>
                       </tr>
                       <tr className="bg-slate-100 text-center font-bold">
-                        <th colSpan={4} className="border border-black py-0.5 text-[8.5pt]">RUMAH TANGGA</th>
-                        <th colSpan={4} className="border border-black py-0.5 text-[8.5pt] border-l-2">PERUNTUKAN LAIN</th>
+                        <th colSpan={4} className="border border-black py-0.5 text-[7.5pt]">RUMAH TANGGA</th>
+                        <th colSpan={4} className="border border-black py-0.5 text-[7.5pt] border-l-2">PERUNTUKAN LAIN</th>
                       </tr>
-                      <tr className="bg-slate-50 text-[7.5pt] font-semibold text-slate-700">
-                        <th className="border border-black py-1 w-[24%] px-1 text-left">PERALATAN LISTRIK</th>
-                        <th className="border border-black py-1 w-[8%] text-center">JUMLAH</th>
-                        <th className="border border-black py-1 w-[9%] text-center">DAYA SATUAN (WATT)</th>
-                        <th className="border border-black py-1 w-[9%] text-center">DAYA TOTAL (WATT)</th>
-                        <th className="border border-black py-1 w-[24%] px-1 text-left border-l-2">PERALATAN LISTRIK</th>
-                        <th className="border border-black py-1 w-[8%] text-center">JUMLAH</th>
-                        <th className="border border-black py-1 w-[9%] text-center">DAYA SATUAN (WATT)</th>
-                        <th className="border border-black py-1 w-[9%] text-center">DAYA TOTAL (WATT)</th>
+                      <tr className="bg-slate-50 text-[6.5pt] font-semibold text-slate-700">
+                        <th className="border border-black py-0.5 w-[24%] px-1 text-left">PERALATAN LISTRIK</th>
+                        <th className="border border-black py-0.5 w-[8%] text-center">JUMLAH</th>
+                        <th className="border border-black py-0.5 w-[9%] text-center">DAYA SATUAN (WATT)</th>
+                        <th className="border border-black py-0.5 w-[9%] text-center">DAYA TOTAL (WATT)</th>
+                        <th className="border border-black py-0.5 w-[24%] px-1 text-left border-l-2">PERALATAN LISTRIK</th>
+                        <th className="border border-black py-0.5 w-[8%] text-center">JUMLAH</th>
+                        <th className="border border-black py-0.5 w-[9%] text-center">DAYA SATUAN (WATT)</th>
+                        <th className="border border-black py-0.5 w-[9%] text-center">DAYA TOTAL (WATT)</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -481,7 +483,7 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                         const renderVal = (val) => (val !== '' && val !== undefined && val !== null ? val : '\u00A0');
 
                         return (
-                          <tr key={rowIndex} className="h-5">
+                          <tr key={rowIndex} className="h-4">
                             {/* RT Side */}
                             <td className="border border-black px-1.5 py-0 truncate max-w-[80px]">{itemRT.name || (rowIndex === 0 ? 'Lampu' : '\u00A0')}</td>
                             <td className="border border-black text-center py-0 font-mono">{renderVal(itemRT.qty)}</td>
@@ -497,14 +499,14 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                         );
                       })}
                       {/* Totals row */}
-                      <tr className="bg-slate-50 font-bold text-[8.5pt]">
+                      <tr className="bg-slate-50 font-bold text-[7.5pt]">
                         <td colSpan={3} className="border border-black px-1.5 py-0.5 font-bold">TOTAL</td>
                         <td className="border border-black text-center py-0.5 font-mono font-bold text-blue-700">{totalRT > 0 ? totalRT : ''}</td>
                         <td colSpan={3} className="border border-black px-1.5 py-0.5 font-bold border-l-2">TOTAL</td>
                         <td className="border border-black text-center py-0.5 font-mono font-bold text-blue-700">{totalPL > 0 ? totalPL : ''}</td>
                       </tr>
                       {/* Percentages row */}
-                      <tr className="bg-slate-100 font-extrabold text-[8.5pt]">
+                      <tr className="bg-slate-100 font-extrabold text-[7.5pt]">
                         <td colSpan={3} className="border border-black px-1.5 py-0.5 text-right font-bold">%</td>
                         <td className="border border-black text-center py-0.5 font-mono font-extrabold">{grandTotal > 0 ? `${pctRT}%` : '%'}</td>
                         <td colSpan={3} className="border border-black px-1.5 py-0.5 text-right font-bold border-l-2">%</td>
@@ -515,32 +517,32 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                 </div>
 
                 {/* Legal Declaration */}
-                <p className="text-justify text-[8.5pt] italic mb-3 leading-normal">
+                <p className="text-justify text-[7.5pt] italic mb-1.5 leading-tight">
                   Berdasarkan hasil pemeriksaan di atas, apabila ditemukan ketidaksesuaian, maka Pelanggan bersedia mengikuti peraturan dan ketentuan yang berlaku di PLN.
                 </p>
 
                 {/* Signatures section (Table 6 - 3 columns x 2 rows borderless layout) */}
-                <div className="mt-auto w-full text-[8.5pt]">
+                <div className="mt-auto w-full text-[8pt]">
                   {/* Row 1 Signatures */}
-                  <div className="grid grid-cols-3 text-center min-h-[95px]">
+                  <div className="grid grid-cols-3 text-center min-h-[75px]">
                     {/* Pelanggan */}
-                    <div className="p-1 flex flex-col justify-between">
+                    <div className="p-0.5 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Pelanggan/Pemilik Persil</span>
-                      <div className="h-10 flex items-center justify-center relative my-0.5">
+                      <div className="h-8 flex items-center justify-center relative my-0.5">
                         {/* Area TTD Fisik Pelanggan */}
                       </div>
                       <span className="font-bold underline uppercase truncate">{namaPelanggan || '___________________________'}</span>
                     </div>
 
                     {/* Petugas */}
-                    <div className="p-1 flex flex-col justify-between">
+                    <div className="p-0.5 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Petugas Pemeriksa</span>
-                      <div className="h-10 flex items-center justify-center relative my-0.5">
+                      <div className="h-8 flex items-center justify-center relative my-0.5">
                         {sertakanTtd && ttdPetugas ? (
                           <img
                             src={ttdPetugas}
                             alt="Ttd Petugas"
-                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
+                            className="h-8 max-w-[100px] object-contain mix-blend-multiply"
                           />
                         ) : null}
                       </div>
@@ -548,14 +550,14 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                     </div>
 
                     {/* TL TE LAY GAN */}
-                    <div className="p-1 flex flex-col justify-between">
+                    <div className="p-0.5 flex flex-col justify-between">
                       <span className="font-bold leading-tight">TL TE LAY GAN</span>
-                      <div className="h-10 flex items-center justify-center relative my-0.5">
+                      <div className="h-8 flex items-center justify-center relative my-0.5">
                         {sertakanTtd && ttdTl ? (
                           <img
                             src={ttdTl}
                             alt="Ttd TL"
-                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
+                            className="h-8 max-w-[100px] object-contain mix-blend-multiply"
                           />
                         ) : null}
                       </div>
@@ -564,16 +566,16 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                   </div>
 
                   {/* Row 2 Signatures */}
-                  <div className="grid grid-cols-3 text-center min-h-[95px] mt-1.5">
+                  <div className="grid grid-cols-3 text-center min-h-[75px] mt-1">
                     {/* MUP3 */}
-                    <div className="p-1 flex flex-col justify-between">
+                    <div className="p-0.5 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Mengesahkan,<br />MUP3 Salatiga</span>
-                      <div className="h-10 flex items-center justify-center relative my-0.5">
+                      <div className="h-8 flex items-center justify-center relative my-0.5">
                         {sertakanTtd && ttdMup3 ? (
                           <img
                             src={ttdMup3}
                             alt="Ttd MUP3"
-                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
+                            className="h-8 max-w-[100px] object-contain mix-blend-multiply"
                           />
                         ) : null}
                       </div>
@@ -581,14 +583,14 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                     </div>
 
                     {/* ASMAN NPS */}
-                    <div className="p-1 flex flex-col justify-between">
+                    <div className="p-0.5 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Mengetahui,<br />ASMAN NPS</span>
-                      <div className="h-10 flex items-center justify-center relative my-0.5">
+                      <div className="h-8 flex items-center justify-center relative my-0.5">
                         {sertakanTtd && ttdAsman ? (
                           <img
                             src={ttdAsman}
                             alt="Ttd ASMAN"
-                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
+                            className="h-8 max-w-[100px] object-contain mix-blend-multiply"
                           />
                         ) : null}
                       </div>
@@ -596,14 +598,14 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                     </div>
 
                     {/* MULP */}
-                    <div className="p-1 flex flex-col justify-between">
+                    <div className="p-0.5 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Menyetujui,<br />MULP Salatiga Kota</span>
-                      <div className="h-10 flex items-center justify-center relative my-0.5">
+                      <div className="h-8 flex items-center justify-center relative my-0.5">
                         {sertakanTtd && ttdMulp ? (
                           <img
                             src={ttdMulp}
                             alt="Ttd MULP"
-                            className="h-10 max-w-[110px] object-contain mix-blend-multiply"
+                            className="h-8 max-w-[100px] object-contain mix-blend-multiply"
                           />
                         ) : null}
                       </div>
