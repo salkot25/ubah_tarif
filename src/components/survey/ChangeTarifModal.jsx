@@ -536,9 +536,9 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
                     <div className="p-1 flex flex-col justify-between">
                       <span className="font-bold leading-tight">Petugas Pemeriksa</span>
                       <div className="h-10 flex items-center justify-center relative my-0.5">
-                        {sertakanTtd && (ttdPetugas || './signature-petugas.png') ? (
+                        {sertakanTtd && ttdPetugas ? (
                           <img
-                            src={ttdPetugas || './signature-petugas.png'}
+                            src={ttdPetugas}
                             alt="Ttd Petugas"
                             className="h-10 max-w-[110px] object-contain mix-blend-multiply"
                           />

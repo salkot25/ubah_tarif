@@ -424,9 +424,9 @@ export default function LiveBASheet({ data, sertakanTtd = true }) {
             </div>
             {/* Signature Image */}
             <div className="h-10 w-full relative flex items-center justify-center my-1">
-              {sertakanTtd && (ttdPetugas || './signature-petugas.png') ? (
+              {sertakanTtd && ttdPetugas ? (
                 <img
-                  src={ttdPetugas || './signature-petugas.png'}
+                  src={ttdPetugas}
                   alt="Tanda Tangan Petugas"
                   className="h-10 max-w-[120px] object-contain mix-blend-multiply"
                 />

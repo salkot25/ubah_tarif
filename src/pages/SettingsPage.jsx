@@ -366,7 +366,6 @@ export default function SettingsPage() {
                     </div>
                     <CompactSignatureButton
                       value={settings.SETTING_TTD_PETUGAS_SURVEY}
-                      defaultAsset="./signature-petugas.png"
                       onChange={val => handleSettingChange('SETTING_TTD_PETUGAS_SURVEY', val)}
                       modalTitle="Tanda Tangan Petugas Survey Lapangan"
                     />
