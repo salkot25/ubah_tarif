@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { FORM_STEPS } from '../../config/constants';
 import { StepIdentitas } from './StepIdentitas';
@@ -169,9 +170,9 @@ export function SurveyForm({ onSubmit, initialData = {}, isEdit = false, submitt
           <Button variant="secondary" onClick={handleReset}>
             Isi Survey Baru
           </Button>
-          <a href="/data">
+          <Link to="/survey">
             <Button variant="primary">Lihat Data Survey</Button>
-          </a>
+          </Link>
         </div>
       </div>
     );

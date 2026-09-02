@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script>
+      // Single Page Application SPA Redirect for GitHub Pages
+      (function() {
+        var path = window.location.pathname;
+        var search = window.location.search;
+        var hash = window.location.hash;
+        
+        // Remove trailing slash if present
+        if (path.length > 1 && path.endsWith('/')) {
+          path = path.slice(0, -1);
+        }
+        
+        // Redirect to hash route if path is not root
+        if (path && path !== '/') {
+          window.location.replace('/#' + path + search + hash);
+        } else {
+          window.location.replace('/' + search + hash);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

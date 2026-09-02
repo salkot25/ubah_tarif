@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { PageWrapper } from './components/layout/PageWrapper';
 import { ToastProvider } from './components/ui/Toast';
@@ -56,7 +56,7 @@ function AppContent() {
 
 export default function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL && import.meta.env.BASE_URL !== './' ? import.meta.env.BASE_URL : ''}>
+    <HashRouter>
       <ThemeProvider>
         <ToastProvider>
           <AuthProvider>
@@ -64,6 +64,6 @@ export default function App() {
           </AuthProvider>
         </ToastProvider>
       </ThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
