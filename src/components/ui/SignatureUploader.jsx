@@ -739,4 +739,4 @@ export function SignatureSlot({
   );
 }
 
-export default SignatureUploader;
+export default CompactSignatureButton;
