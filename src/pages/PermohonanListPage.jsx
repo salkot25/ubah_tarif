@@ -383,206 +383,204 @@ export default function PermohonanListPage() {
       </Card>
 
       {/* Content Container */}
-      <Card className={viewMode === 'grid' ? 'bg-transparent border-0 shadow-none p-0' : ''}>
-        {loading ? (
-          <div className="p-8 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700"><PageLoader /></div>
-        ) : error ? (
-          <div className="p-8 text-center bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
-            <p className="text-red-600 text-sm">{error}</p>
-            <Button variant="secondary" size="sm" className="mt-3" onClick={() => refetch()}>Coba Lagi</Button>
-          </div>
-        ) : permohonans.length === 0 ? (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
-            <EmptyState
-              icon={FileText}
-              title="Tidak ada permohonan ditemukan"
-              description="Daftarkan permohonan perubahan tarif baru menggunakan tombol di atas"
-            />
-          </div>
-        ) : viewMode === 'grid' ? (
-          <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {permohonans.map((row, i) => (
-                <Card key={row.IDPEL || i} className="p-4 hover:shadow-card-lg transition-all border border-slate-200 dark:border-slate-700 flex flex-col justify-between space-y-3">
-                  <div>
-                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-slate-700">
-                      <span className="font-mono text-xs font-bold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded-md border border-blue-100 dark:border-blue-800">{row.IDPEL}</span>
-                      <PermohonanStatusBadge value={row.STATUS_PERMOHONAN} />
-                    </div>
-
-                    <div className="mt-3 space-y-1">
-                      <h4 className="font-bold text-sm text-slate-800 dark:text-slate-100 line-clamp-1">{row.NAMA}</h4>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed" title={row.ALAMAT}>{row.ALAMAT}</p>
-                    </div>
-
-                    <div className="mt-3 bg-slate-50 dark:bg-slate-900/50 p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700/60 grid grid-cols-2 gap-2 text-xs">
-                      <div>
-                        <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase block">Tarif Lama</span>
-                        <span className="font-semibold text-slate-700 dark:text-slate-300 block mt-0.5">{row.TARIF || '—'}</span>
-                        <span className="text-[10px] text-slate-400 dark:text-slate-500 block">{row.DAYA ? `${row.DAYA.toString().replace(' VA', '')} VA` : '—'}</span>
-                      </div>
-                      <div className="border-l border-slate-200 dark:border-slate-700 pl-2.5">
-                        <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase block">Tarif Baru</span>
-                        <span className="font-bold text-blue-700 dark:text-blue-400 block mt-0.5">{row.TARIF_BARU || '—'}</span>
-                        <span className="text-[10px] text-blue-500 dark:text-blue-400/70 block">{row.DAYA_BARU ? `${row.DAYA_BARU.toString().replace(' VA', '')} VA` : '—'}</span>
-                      </div>
-                    </div>
+      {loading ? (
+        <Card className="p-8 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700"><PageLoader /></Card>
+      ) : error ? (
+        <Card className="p-8 text-center bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+          <p className="text-red-600 text-sm">{error}</p>
+          <Button variant="secondary" size="sm" className="mt-3" onClick={() => refetch()}>Coba Lagi</Button>
+        </Card>
+      ) : permohonans.length === 0 ? (
+        <Card className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+          <EmptyState
+            icon={FileText}
+            title="Tidak ada permohonan ditemukan"
+            description="Daftarkan permohonan perubahan tarif baru menggunakan tombol di atas"
+          />
+        </Card>
+      ) : viewMode === 'grid' ? (
+        <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {permohonans.map((row, i) => (
+              <Card key={row.IDPEL || i} className="p-4 hover:shadow-card-lg transition-all border border-slate-200 dark:border-slate-700 flex flex-col justify-between space-y-3 bg-white dark:bg-slate-800">
+                <div>
+                  <div className="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-slate-700">
+                    <span className="font-mono text-xs font-bold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded-md border border-blue-100 dark:border-blue-800">{row.IDPEL}</span>
+                    <PermohonanStatusBadge value={row.STATUS_PERMOHONAN} />
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                    <span className="font-medium text-[11px] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded text-slate-600 dark:text-slate-300">{row.MEDIA_PERMOHONAN}</span>
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={() => setDetailModal({ open: true, data: row })}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors"
-                        title="Detail Permohonan"
-                      >
-                        <Eye size={16} />
-                      </button>
-                      <button
-                        onClick={() => setPrintModal({ open: true, data: row })}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-slate-700 transition-colors"
-                        title="Cetak Live PDF"
-                      >
-                        <Printer size={16} />
-                      </button>
-                      <button
-                        onClick={() => handleOpenEdit(row)}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-slate-700 transition-colors"
-                        title="Edit Data Administrasi"
-                      >
-                        <Edit2 size={16} />
-                      </button>
-                      {user?.role === 'admin' && (
-                        <button
-                          onClick={() => setDeleteConfirm({ open: true, idpel: row.IDPEL, name: row.NAMA })}
-                          className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-slate-700 transition-colors"
-                          title="Hapus Permohonan"
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      )}
+                  <div className="mt-3 space-y-1">
+                    <h4 className="font-bold text-sm text-slate-800 dark:text-slate-100 line-clamp-1">{row.NAMA}</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed" title={row.ALAMAT}>{row.ALAMAT}</p>
+                  </div>
+
+                  <div className="mt-3 bg-slate-50 dark:bg-slate-900/50 p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700/60 grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase block">Tarif Lama</span>
+                      <span className="font-semibold text-slate-700 dark:text-slate-300 block mt-0.5">{row.TARIF || '—'}</span>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 block">{row.DAYA ? `${row.DAYA.toString().replace(' VA', '')} VA` : '—'}</span>
+                    </div>
+                    <div className="border-l border-slate-200 dark:border-slate-700 pl-2.5">
+                      <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase block">Tarif Baru</span>
+                      <span className="font-bold text-blue-700 dark:text-blue-400 block mt-0.5">{row.TARIF_BARU || '—'}</span>
+                      <span className="text-[10px] text-blue-500 dark:text-blue-400/70 block">{row.DAYA_BARU ? `${row.DAYA_BARU.toString().replace(' VA', '')} VA` : '—'}</span>
                     </div>
                   </div>
-                </Card>
-              ))}
-            </div>
-            <Card className="p-0 mt-4 overflow-hidden border border-slate-200 dark:border-slate-700">
-              <PaginationBar meta={meta} limit={filters.limit} setLimit={setLimit} setPage={setPage} />
-            </Card>
+                </div>
+
+                <div className="pt-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                  <span className="font-medium text-[11px] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded text-slate-600 dark:text-slate-300">{row.MEDIA_PERMOHONAN}</span>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => setDetailModal({ open: true, data: row })}
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors"
+                      title="Detail Permohonan"
+                    >
+                      <Eye size={16} />
+                    </button>
+                    <button
+                      onClick={() => setPrintModal({ open: true, data: row })}
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-slate-700 transition-colors"
+                      title="Cetak Live PDF"
+                    >
+                      <Printer size={16} />
+                    </button>
+                    <button
+                      onClick={() => handleOpenEdit(row)}
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-slate-700 transition-colors"
+                      title="Edit Data Administrasi"
+                    >
+                      <Edit2 size={16} />
+                    </button>
+                    {user?.role === 'admin' && (
+                      <button
+                        onClick={() => setDeleteConfirm({ open: true, idpel: row.IDPEL, name: row.NAMA })}
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-slate-700 transition-colors"
+                        title="Hapus Permohonan"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </Card>
+            ))}
           </div>
-        ) : (
-          <>
-            <div className="table-wrapper">
-              <table className="data-table">
-                <thead>
-                  <tr>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('IDPEL')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>IDPEL</span>
-                        {renderSortIcon('IDPEL')}
-                      </div>
-                    </th>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('NAMA')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>Nama Pelanggan</span>
-                        {renderSortIcon('NAMA')}
-                      </div>
-                    </th>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('ALAMAT')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>Alamat</span>
-                        {renderSortIcon('ALAMAT')}
-                      </div>
-                    </th>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('TARIF')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>Tarif / Daya Lama</span>
-                        {renderSortIcon('TARIF')}
-                      </div>
-                    </th>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('TARIF_BARU')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>Tarif / Daya Baru</span>
-                        {renderSortIcon('TARIF_BARU')}
-                      </div>
-                    </th>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('MEDIA_PERMOHONAN')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>Media</span>
-                        {renderSortIcon('MEDIA_PERMOHONAN')}
-                      </div>
-                    </th>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('STATUS_PERMOHONAN')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>Status Berkas</span>
-                        {renderSortIcon('STATUS_PERMOHONAN')}
-                      </div>
-                    </th>
-                    <th className="text-center select-none">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {permohonans.map((row, i) => (
-                    <tr key={row.IDPEL || i}>
-                      <td className="font-mono text-xs font-bold text-blue-700">{row.IDPEL}</td>
-                      <td className="font-medium max-w-[140px] truncate">{row.NAMA}</td>
-                      <td className="text-slate-500 max-w-[180px] truncate" title={row.ALAMAT}>{row.ALAMAT}</td>
-                      <td>
-                        <span className="font-semibold text-slate-700">{row.TARIF}</span>
-                        <span className="text-xs text-slate-400 ml-1">({row.DAYA ? row.DAYA.toString().replace(' VA', '') : ''} VA)</span>
-                      </td>
-                      <td className="text-blue-700">
-                        <span className="font-bold">{row.TARIF_BARU || '—'}</span>
-                        {row.TARIF_BARU && row.DAYA_BARU && (
-                          <span className="text-xs ml-1">({row.DAYA_BARU.toString().replace(' VA', '')} VA)</span>
-                        )}
-                      </td>
-                      <td className="text-slate-500 font-medium text-xs">{row.MEDIA_PERMOHONAN}</td>
-                      <td><PermohonanStatusBadge value={row.STATUS_PERMOHONAN} /></td>
-                      <td>
-                        <div className="flex items-center justify-center gap-1">
-                          <button
-                            onClick={() => setDetailModal({ open: true, data: row })}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors"
-                            title="Detail Permohonan"
-                          >
-                            <Eye size={15} />
-                          </button>
-                          <button
-                            onClick={() => setPrintModal({ open: true, data: row })}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-slate-700 transition-colors"
-                            title="Cetak Live PDF"
-                          >
-                            <Printer size={15} />
-                          </button>
-                          <button
-                            onClick={() => handleOpenEdit(row)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-slate-700 transition-colors"
-                            title="Edit Data Administrasi"
-                          >
-                            <Edit2 size={15} />
-                          </button>
-                          {user?.role === 'admin' && (
-                            <button
-                              onClick={() => setDeleteConfirm({ open: true, idpel: row.IDPEL, name: row.NAMA })}
-                              className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-slate-700 transition-colors"
-                              title="Hapus Permohonan"
-                            >
-                              <Trash2 size={16} />
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          <Card className="p-0 mt-4 overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
             <PaginationBar meta={meta} limit={filters.limit} setLimit={setLimit} setPage={setPage} />
-          </>
-        )}
-      </Card>
+          </Card>
+        </div>
+      ) : (
+        <Card className="overflow-hidden bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+          <div className="table-wrapper">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('IDPEL')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>IDPEL</span>
+                      {renderSortIcon('IDPEL')}
+                    </div>
+                  </th>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('NAMA')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>Nama Pelanggan</span>
+                      {renderSortIcon('NAMA')}
+                    </div>
+                  </th>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('ALAMAT')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>Alamat</span>
+                      {renderSortIcon('ALAMAT')}
+                    </div>
+                  </th>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('TARIF')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>Tarif / Daya Lama</span>
+                      {renderSortIcon('TARIF')}
+                    </div>
+                  </th>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('TARIF_BARU')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>Tarif / Daya Baru</span>
+                      {renderSortIcon('TARIF_BARU')}
+                    </div>
+                  </th>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('MEDIA_PERMOHONAN')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>Media</span>
+                      {renderSortIcon('MEDIA_PERMOHONAN')}
+                    </div>
+                  </th>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('STATUS_PERMOHONAN')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>Status Berkas</span>
+                      {renderSortIcon('STATUS_PERMOHONAN')}
+                    </div>
+                  </th>
+                  <th className="text-center select-none">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {permohonans.map((row, i) => (
+                  <tr key={row.IDPEL || i}>
+                    <td className="font-mono text-xs font-bold text-blue-700">{row.IDPEL}</td>
+                    <td className="font-medium max-w-[140px] truncate">{row.NAMA}</td>
+                    <td className="text-slate-500 max-w-[180px] truncate" title={row.ALAMAT}>{row.ALAMAT}</td>
+                    <td>
+                      <span className="font-semibold text-slate-700">{row.TARIF}</span>
+                      <span className="text-xs text-slate-400 ml-1">({row.DAYA ? row.DAYA.toString().replace(' VA', '') : ''} VA)</span>
+                    </td>
+                    <td className="text-blue-700">
+                      <span className="font-bold">{row.TARIF_BARU || '—'}</span>
+                      {row.TARIF_BARU && row.DAYA_BARU && (
+                        <span className="text-xs ml-1">({row.DAYA_BARU.toString().replace(' VA', '')} VA)</span>
+                      )}
+                    </td>
+                    <td className="text-slate-500 font-medium text-xs">{row.MEDIA_PERMOHONAN}</td>
+                    <td><PermohonanStatusBadge value={row.STATUS_PERMOHONAN} /></td>
+                    <td>
+                      <div className="flex items-center justify-center gap-1">
+                        <button
+                          onClick={() => setDetailModal({ open: true, data: row })}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors"
+                          title="Detail Permohonan"
+                        >
+                          <Eye size={15} />
+                        </button>
+                        <button
+                          onClick={() => setPrintModal({ open: true, data: row })}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-slate-700 transition-colors"
+                          title="Cetak Live PDF"
+                        >
+                          <Printer size={15} />
+                        </button>
+                        <button
+                          onClick={() => handleOpenEdit(row)}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-slate-700 transition-colors"
+                          title="Edit Data Administrasi"
+                        >
+                          <Edit2 size={15} />
+                        </button>
+                        {user?.role === 'admin' && (
+                          <button
+                            onClick={() => setDeleteConfirm({ open: true, idpel: row.IDPEL, name: row.NAMA })}
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-slate-700 transition-colors"
+                            title="Hapus Permohonan"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <PaginationBar meta={meta} limit={filters.limit} setLimit={setLimit} setPage={setPage} />
+        </Card>
+      )}
 
       <Modal
         isOpen={formModal.open}

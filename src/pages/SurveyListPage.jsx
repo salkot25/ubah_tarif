@@ -231,215 +231,213 @@ export default function SurveyListPage() {
       </Card>
 
       {/* Content Container */}
-      <Card className={viewMode === 'grid' ? 'bg-transparent border-0 shadow-none p-0' : ''}>
-        {loading ? (
-          <div className="p-8 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700"><PageLoader /></div>
-        ) : error ? (
-          <div className="p-8 text-center bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
-            <p className="text-red-600 text-sm">{error}</p>
-            <Button variant="secondary" size="sm" className="mt-3" onClick={() => refetch()}>Coba Lagi</Button>
-          </div>
-        ) : surveys.length === 0 ? (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
-            <EmptyState
-              icon={ClipboardList}
-              title="Tidak ada antrean survey"
-              description="Pelanggan harus didaftarkan di menu Permohonan Tarif terlebih dahulu"
-            />
-          </div>
-        ) : viewMode === 'grid' ? (
-          <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {surveys.map((row, i) => (
-                <Card key={row.IDPEL || i} className="p-4 hover:shadow-card-lg transition-all border border-slate-200 dark:border-slate-700 flex flex-col justify-between space-y-3 bg-white dark:bg-slate-800">
-                  <div>
-                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-slate-700">
-                      <span className="font-mono text-xs font-bold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded-md border border-blue-100 dark:border-blue-800">{row.IDPEL}</span>
-                      <SurveyStatusBadge value={row.STATUS_SURVEY} />
-                    </div>
+      {loading ? (
+        <Card className="p-8 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700"><PageLoader /></Card>
+      ) : error ? (
+        <Card className="p-8 text-center bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+          <p className="text-red-600 text-sm">{error}</p>
+          <Button variant="secondary" size="sm" className="mt-3" onClick={() => refetch()}>Coba Lagi</Button>
+        </Card>
+      ) : surveys.length === 0 ? (
+        <Card className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+          <EmptyState
+            icon={ClipboardList}
+            title="Tidak ada antrean survey"
+            description="Pelanggan harus didaftarkan di menu Permohonan Tarif terlebih dahulu"
+          />
+        </Card>
+      ) : viewMode === 'grid' ? (
+        <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {surveys.map((row, i) => (
+              <Card key={row.IDPEL || i} className="p-4 hover:shadow-card-lg transition-all border border-slate-200 dark:border-slate-700 flex flex-col justify-between space-y-3 bg-white dark:bg-slate-800">
+                <div>
+                  <div className="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-slate-700">
+                    <span className="font-mono text-xs font-bold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded-md border border-blue-100 dark:border-blue-800">{row.IDPEL}</span>
+                    <SurveyStatusBadge value={row.STATUS_SURVEY} />
+                  </div>
 
-                    <div className="mt-3 space-y-1">
-                      <h4 className="font-bold text-sm text-slate-800 dark:text-slate-100 line-clamp-1">{row.NAMA}</h4>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed" title={row.ALAMAT}>{row.ALAMAT}</p>
-                    </div>
+                  <div className="mt-3 space-y-1">
+                    <h4 className="font-bold text-sm text-slate-800 dark:text-slate-100 line-clamp-1">{row.NAMA}</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed" title={row.ALAMAT}>{row.ALAMAT}</p>
+                  </div>
 
-                    <div className="mt-3 bg-slate-50 dark:bg-slate-900/50 p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700/60 grid grid-cols-2 gap-2 text-xs">
-                      <div>
-                        <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase block">Tarif & Daya</span>
-                        <span className="font-semibold text-slate-700 dark:text-slate-300 block mt-0.5">{row.TARIF || '—'} ({row.DAYA ? `${row.DAYA.toString().replace(' VA', '')} VA` : '—'})</span>
-                      </div>
-                      <div className="border-l border-slate-200 dark:border-slate-700 pl-2.5">
-                        <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase block">Hasil SPI</span>
-                        <div className="mt-0.5">
-                          {row.KESIMPULAN_SPI ? (
-                            <KesimpulanBadge value={row.KESIMPULAN_SPI} />
-                          ) : (
-                            <span className="text-slate-400 dark:text-slate-500 text-[10px] italic">Belum diisi</span>
-                          )}
-                        </div>
+                  <div className="mt-3 bg-slate-50 dark:bg-slate-900/50 p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700/60 grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase block">Tarif & Daya</span>
+                      <span className="font-semibold text-slate-700 dark:text-slate-300 block mt-0.5">{row.TARIF || '—'} ({row.DAYA ? `${row.DAYA.toString().replace(' VA', '')} VA` : '—'})</span>
+                    </div>
+                    <div className="border-l border-slate-200 dark:border-slate-700 pl-2.5">
+                      <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase block">Hasil SPI</span>
+                      <div className="mt-0.5">
+                        {row.KESIMPULAN_SPI ? (
+                          <KesimpulanBadge value={row.KESIMPULAN_SPI} />
+                        ) : (
+                          <span className="text-slate-400 dark:text-slate-500 text-[10px] italic">Belum diisi</span>
+                        )}
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  <div className="pt-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                    <div>
+                <div className="pt-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                  <div>
+                    {row.LAT && row.LONG ? (
+                      <a
+                        href={`https://maps.google.com/?q=${row.LAT},${row.LONG}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline font-semibold"
+                      >
+                        <MapPin size={13} /> GPS Lokasi
+                      </a>
+                    ) : <span className="text-slate-400 text-xs">—</span>}
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => setDetailModal({ open: true, data: row })}
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                      title="Detail Survey"
+                    >
+                      <Eye size={16} />
+                    </button>
+                    <button
+                      onClick={() => setSurveyModal({ open: true, data: row })}
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-colors"
+                      title="Input / Edit Hasil Survey"
+                    >
+                      <Edit2 size={16} />
+                    </button>
+                    <button
+                      onClick={() => setPrintModal({ open: true, data: row })}
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
+                      title="Cetak BA + Lampiran (PDF)"
+                      disabled={row.STATUS_SURVEY === 'Belum'}
+                      style={{ opacity: row.STATUS_SURVEY === 'Belum' ? 0.3 : 1 }}
+                    >
+                      <FileText size={16} />
+                    </button>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+          <Card className="p-0 mt-4 overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+            <PaginationBar meta={meta} limit={filters.limit} setLimit={setLimit} setPage={setPage} />
+          </Card>
+        </div>
+      ) : (
+        <Card className="overflow-hidden bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+          <div className="table-wrapper">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('IDPEL')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>IDPEL</span>
+                      {renderSortIcon('IDPEL')}
+                    </div>
+                  </th>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('NAMA')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>Nama Pelanggan</span>
+                      {renderSortIcon('NAMA')}
+                    </div>
+                  </th>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('ALAMAT')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>Alamat</span>
+                      {renderSortIcon('ALAMAT')}
+                    </div>
+                  </th>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('TARIF')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>Tarif / Daya</span>
+                      {renderSortIcon('TARIF')}
+                    </div>
+                  </th>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('KESIMPULAN_SPI')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>Kesimpulan SPI</span>
+                      {renderSortIcon('KESIMPULAN_SPI')}
+                    </div>
+                  </th>
+                  <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('STATUS_SURVEY')}>
+                    <div className="flex items-center gap-1.5">
+                      <span>Status Survey</span>
+                      {renderSortIcon('STATUS_SURVEY')}
+                    </div>
+                  </th>
+                  <th className="select-none">Peta</th>
+                  <th className="text-center select-none">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {surveys.map((row, i) => (
+                  <tr key={row.IDPEL || i}>
+                    <td className="font-mono text-xs font-bold text-blue-700">{row.IDPEL}</td>
+                    <td className="font-medium max-w-[140px] truncate">{row.NAMA}</td>
+                    <td className="text-slate-500 max-w-[180px] truncate" title={row.ALAMAT}>{row.ALAMAT}</td>
+                    <td>
+                      <span className="font-semibold text-slate-700">{row.TARIF}</span>
+                      <span className="text-xs text-slate-400 ml-1">({row.DAYA ? row.DAYA.toString().replace(' VA', '') : ''} VA)</span>
+                    </td>
+                    <td>
+                      {row.KESIMPULAN_SPI ? (
+                        <KesimpulanBadge value={row.KESIMPULAN_SPI} />
+                      ) : (
+                        <span className="text-slate-400 text-xs">— Belum diisi —</span>
+                      )}
+                    </td>
+                    <td><SurveyStatusBadge value={row.STATUS_SURVEY} /></td>
+                    <td>
                       {row.LAT && row.LONG ? (
                         <a
                           href={`https://maps.google.com/?q=${row.LAT},${row.LONG}`}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline font-semibold"
+                          className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline"
                         >
-                          <MapPin size={13} /> GPS Lokasi
+                          <MapPin size={11} />GPS
                         </a>
                       ) : <span className="text-slate-400 text-xs">—</span>}
-                    </div>
-
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={() => setDetailModal({ open: true, data: row })}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
-                        title="Detail Survey"
-                      >
-                        <Eye size={16} />
-                      </button>
-                      <button
-                        onClick={() => setSurveyModal({ open: true, data: row })}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-colors"
-                        title="Input / Edit Hasil Survey"
-                      >
-                        <Edit2 size={16} />
-                      </button>
-                      <button
-                        onClick={() => setPrintModal({ open: true, data: row })}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
-                        title="Cetak BA + Lampiran (PDF)"
-                        disabled={row.STATUS_SURVEY === 'Belum'}
-                        style={{ opacity: row.STATUS_SURVEY === 'Belum' ? 0.3 : 1 }}
-                      >
-                        <FileText size={16} />
-                      </button>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-            <Card className="p-0 mt-4 overflow-hidden border border-slate-200 dark:border-slate-700">
-              <PaginationBar meta={meta} limit={filters.limit} setLimit={setLimit} setPage={setPage} />
-            </Card>
-          </div>
-        ) : (
-          <>
-            <div className="table-wrapper">
-              <table className="data-table">
-                <thead>
-                  <tr>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('IDPEL')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>IDPEL</span>
-                        {renderSortIcon('IDPEL')}
+                    </td>
+                    <td>
+                      <div className="flex items-center justify-center gap-1">
+                        <button
+                          onClick={() => setDetailModal({ open: true, data: row })}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                          title="Detail Survey"
+                        >
+                          <Eye size={15} />
+                        </button>
+                        <button
+                          onClick={() => setSurveyModal({ open: true, data: row })}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-colors"
+                          title="Input / Edit Hasil Survey"
+                        >
+                          <Edit2 size={15} />
+                        </button>
+                        <button
+                          onClick={() => setPrintModal({ open: true, data: row })}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
+                          title="Cetak BA + Lampiran (PDF)"
+                          disabled={row.STATUS_SURVEY === 'Belum'}
+                          style={{ opacity: row.STATUS_SURVEY === 'Belum' ? 0.3 : 1 }}
+                        >
+                          <FileText size={15} />
+                        </button>
                       </div>
-                    </th>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('NAMA')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>Nama Pelanggan</span>
-                        {renderSortIcon('NAMA')}
-                      </div>
-                    </th>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('ALAMAT')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>Alamat</span>
-                        {renderSortIcon('ALAMAT')}
-                      </div>
-                    </th>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('TARIF')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>Tarif / Daya</span>
-                        {renderSortIcon('TARIF')}
-                      </div>
-                    </th>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('KESIMPULAN_SPI')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>Kesimpulan SPI</span>
-                        {renderSortIcon('KESIMPULAN_SPI')}
-                      </div>
-                    </th>
-                    <th className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors select-none group" onClick={() => setSort('STATUS_SURVEY')}>
-                      <div className="flex items-center gap-1.5">
-                        <span>Status Survey</span>
-                        {renderSortIcon('STATUS_SURVEY')}
-                      </div>
-                    </th>
-                    <th className="select-none">Peta</th>
-                    <th className="text-center select-none">Aksi</th>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {surveys.map((row, i) => (
-                    <tr key={row.IDPEL || i}>
-                      <td className="font-mono text-xs font-bold text-blue-700">{row.IDPEL}</td>
-                      <td className="font-medium max-w-[140px] truncate">{row.NAMA}</td>
-                      <td className="text-slate-500 max-w-[180px] truncate" title={row.ALAMAT}>{row.ALAMAT}</td>
-                      <td>
-                        <span className="font-semibold text-slate-700">{row.TARIF}</span>
-                        <span className="text-xs text-slate-400 ml-1">({row.DAYA ? row.DAYA.toString().replace(' VA', '') : ''} VA)</span>
-                      </td>
-                      <td>
-                        {row.KESIMPULAN_SPI ? (
-                          <KesimpulanBadge value={row.KESIMPULAN_SPI} />
-                        ) : (
-                          <span className="text-slate-400 text-xs">— Belum diisi —</span>
-                        )}
-                      </td>
-                      <td><SurveyStatusBadge value={row.STATUS_SURVEY} /></td>
-                      <td>
-                        {row.LAT && row.LONG ? (
-                          <a
-                            href={`https://maps.google.com/?q=${row.LAT},${row.LONG}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline"
-                          >
-                            <MapPin size={11} />GPS
-                          </a>
-                        ) : <span className="text-slate-400 text-xs">—</span>}
-                      </td>
-                      <td>
-                        <div className="flex items-center justify-center gap-1">
-                          <button
-                            onClick={() => setDetailModal({ open: true, data: row })}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
-                            title="Detail Survey"
-                          >
-                            <Eye size={15} />
-                          </button>
-                          <button
-                            onClick={() => setSurveyModal({ open: true, data: row })}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-colors"
-                            title="Input / Edit Hasil Survey"
-                          >
-                            <Edit2 size={15} />
-                          </button>
-                          <button
-                            onClick={() => setPrintModal({ open: true, data: row })}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
-                            title="Cetak BA + Lampiran (PDF)"
-                            disabled={row.STATUS_SURVEY === 'Belum'}
-                            style={{ opacity: row.STATUS_SURVEY === 'Belum' ? 0.3 : 1 }}
-                          >
-                            <FileText size={15} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <PaginationBar meta={meta} limit={filters.limit} setLimit={setLimit} setPage={setPage} />
-          </>
-        )}
-      </Card>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <PaginationBar meta={meta} limit={filters.limit} setLimit={setLimit} setPage={setPage} />
+        </Card>
+      )}
       {/* Survey Wizard Modal */}
       <Modal
         isOpen={surveyModal.open}
