@@ -26,6 +26,7 @@ import {
 } from '../config/constants';
 import { getById } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import ChangeTarifModal from '../components/survey/ChangeTarifModal';
 
 // Status badge helper
 function PermohonanStatusBadge({ value }) {
@@ -130,6 +131,7 @@ export default function PermohonanListPage() {
   });
   const [formModal, setFormModal] = useState({ open: false, data: null });
   const [detailModal, setDetailModal] = useState({ open: false, data: null });
+  const [printModal, setPrintModal] = useState({ open: false, data: null });
   const [deleteConfirm, setDeleteConfirm] = useState({ open: false, idpel: null, name: '' });
   
   const [saving, setSaving] = useState(false);
@@ -432,14 +434,21 @@ export default function PermohonanListPage() {
                     <div className="flex items-center gap-1">
                       <button
                         onClick={() => setDetailModal({ open: true, data: row })}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors"
                         title="Detail Permohonan"
                       >
                         <Eye size={16} />
                       </button>
                       <button
+                        onClick={() => setPrintModal({ open: true, data: row })}
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-slate-700 transition-colors"
+                        title="Preview & Cetak Form Pemeriksaan"
+                      >
+                        <Printer size={16} />
+                      </button>
+                      <button
                         onClick={() => handleOpenEdit(row)}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-colors"
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-slate-700 transition-colors"
                         title="Edit Data Administrasi"
                       >
                         <Edit2 size={16} />
@@ -447,7 +456,7 @@ export default function PermohonanListPage() {
                       {user?.role === 'admin' && (
                         <button
                           onClick={() => setDeleteConfirm({ open: true, idpel: row.IDPEL, name: row.NAMA })}
-                          className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-slate-700 transition-colors"
                           title="Hapus Permohonan"
                         >
                           <Trash2 size={16} />
@@ -535,14 +544,21 @@ export default function PermohonanListPage() {
                         <div className="flex items-center justify-center gap-1">
                           <button
                             onClick={() => setDetailModal({ open: true, data: row })}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors"
                             title="Detail Permohonan"
                           >
                             <Eye size={15} />
                           </button>
                           <button
+                            onClick={() => setPrintModal({ open: true, data: row })}
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-slate-700 transition-colors"
+                            title="Preview & Cetak Form Pemeriksaan"
+                          >
+                            <Printer size={15} />
+                          </button>
+                          <button
                             onClick={() => handleOpenEdit(row)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-colors"
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-slate-700 transition-colors"
                             title="Edit Data Administrasi"
                           >
                             <Edit2 size={15} />
@@ -550,7 +566,7 @@ export default function PermohonanListPage() {
                           {user?.role === 'admin' && (
                             <button
                               onClick={() => setDeleteConfirm({ open: true, idpel: row.IDPEL, name: row.NAMA })}
-                              className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-slate-700 transition-colors"
                               title="Hapus Permohonan"
                             >
                               <Trash2 size={16} />
@@ -942,19 +958,33 @@ export default function PermohonanListPage() {
         title={`Detail Permohonan — ${detailModal.data?.IDPEL}`}
         size="lg"
         footer={
-          <div className="flex gap-2 w-full justify-between items-center">
-            <Button
-              variant="primary"
-              icon={Edit2}
-              size="sm"
-              onClick={() => {
-                const data = detailModal.data;
-                setDetailModal({ open: false, data: null });
-                if (data) handleOpenEdit(data);
-              }}
-            >
-              Edit Data Permohonan
-            </Button>
+          <div className="flex gap-2 w-full justify-between items-center flex-wrap">
+            <div className="flex items-center gap-2">
+              <Button
+                variant="success"
+                icon={Printer}
+                size="sm"
+                onClick={() => {
+                  const data = detailModal.data;
+                  setDetailModal({ open: false, data: null });
+                  if (data) setPrintModal({ open: true, data });
+                }}
+              >
+                Preview & Cetak Formulir
+              </Button>
+              <Button
+                variant="secondary"
+                icon={Edit2}
+                size="sm"
+                onClick={() => {
+                  const data = detailModal.data;
+                  setDetailModal({ open: false, data: null });
+                  if (data) handleOpenEdit(data);
+                }}
+              >
+                Edit Data Permohonan
+              </Button>
+            </div>
             <Button variant="secondary" size="sm" onClick={() => setDetailModal({ open: false, data: null })}>
               Tutup
             </Button>
@@ -984,6 +1014,15 @@ export default function PermohonanListPage() {
         </p>
         <p className="text-xs text-red-600 mt-2">Seluruh data permohonan dan survey terkait akan dihapus secara permanen.</p>
       </Modal>
+
+      {/* Dedicated Preview & Cetak Formulir Pemeriksaan Modal */}
+      {printModal.open && printModal.data && (
+        <ChangeTarifModal
+          isOpen={printModal.open}
+          onClose={() => setPrintModal({ open: false, data: null })}
+          data={printModal.data}
+        />
+      )}
     </div>
   );
 }

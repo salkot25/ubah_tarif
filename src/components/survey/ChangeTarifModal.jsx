@@ -83,7 +83,7 @@ export default function ChangeTarifModal({ isOpen, onClose, data }) {
   const [ttdAsman, setTtdAsman] = useState(() => localStorage.getItem('SETTING_TTD_ASMAN') || '');
   const [ttdMulp, setTtdMulp] = useState(() => localStorage.getItem('SETTING_TTD_MULP') || '');
   const [ttdTl, setTtdTl] = useState(() => localStorage.getItem('SETTING_TTD_TL') || '');
-  const [ttdPetugas, setTtdPetugas] = useState(() => localStorage.getItem('SETTING_TTD_PETUGAS_SURVEY') || './signature-petugas.png');
+  const [ttdPetugas, setTtdPetugas] = useState(() => localStorage.getItem('SETTING_TTD_PETUGAS_SURVEY') || '');
 
   const [sertakanTtd, setSertakanTtd] = useState(true);
 
