@@ -138,6 +138,18 @@ export default function PermohonanListPage() {
   const [sameAsDil, setSameAsDil] = useState(true);
   const searchTimeout = useRef(null);
 
+  // Official Settings & Signatures from localStorage
+  const pejabatMup3 = localStorage.getItem('SETTING_MUP3') || 'VICKY REANDRY FARADIAN';
+  const pejabatAsman = localStorage.getItem('SETTING_ASMAN') || 'MUHAMAD ALWI SOFIAN';
+  const pejabatMulp = localStorage.getItem('SETTING_MULP') || 'ARIF SETYAWAN';
+  const pejabatTl = localStorage.getItem('SETTING_TL') || 'FATHUR ROHIM';
+  const petugasSurvey = localStorage.getItem('SETTING_PETUGAS_SURVEY') || pejabatTl;
+  const ttdMup3 = localStorage.getItem('SETTING_TTD_MUP3') || '';
+  const ttdAsman = localStorage.getItem('SETTING_TTD_ASMAN') || '';
+  const ttdMulp = localStorage.getItem('SETTING_TTD_MULP') || '';
+  const ttdTl = localStorage.getItem('SETTING_TTD_TL') || '';
+  const ttdPetugas = localStorage.getItem('SETTING_TTD_PETUGAS_SURVEY') || '';
+
   useEffect(() => {
     const handleAppRefresh = () => refetch();
     window.addEventListener('app-refresh', handleAppRefresh);
@@ -1417,33 +1429,56 @@ function LiveChangeTarifSheet({ formData, appliancesRT = [], appliancesPL = [], 
         <div className="grid grid-cols-3 text-center min-h-[95px]">
           <div className="p-1 flex flex-col justify-between">
             <span className="font-bold leading-tight">Pelanggan/Pemilik Persil</span>
-            <span className="font-bold underline uppercase mt-6 truncate">{formData.NAMA || '___________________________'}</span>
+            <div className="h-10 flex items-center justify-center relative my-0.5"></div>
+            <span className="font-bold underline uppercase truncate">{formData.NAMA || '___________________________'}</span>
           </div>
           <div className="p-1 flex flex-col justify-between">
             <span className="font-bold leading-tight">Petugas Pemeriksa</span>
             <div className="h-10 flex items-center justify-center relative my-0.5">
-              <img src="./signature-petugas.png" alt="Ttd" className="h-10 object-contain mix-blend-multiply" />
+              {ttdPetugas ? (
+                <img src={ttdPetugas} alt="Ttd Petugas" className="h-10 max-w-[110px] object-contain mix-blend-multiply" />
+              ) : null}
             </div>
-            <span className="font-bold underline uppercase truncate">{pejabatTl || '___________________________'}</span>
+            <span className="font-bold underline uppercase truncate">{petugasSurvey || pejabatTl || '___________________________'}</span>
           </div>
           <div className="p-1 flex flex-col justify-between">
             <span className="font-bold leading-tight">TL TE LAY GAN</span>
-            <span className="font-bold underline uppercase mt-6 truncate">{pejabatTl || '—'}</span>
+            <div className="h-10 flex items-center justify-center relative my-0.5">
+              {ttdTl ? (
+                <img src={ttdTl} alt="Ttd TL" className="h-10 max-w-[110px] object-contain mix-blend-multiply" />
+              ) : null}
+            </div>
+            <span className="font-bold underline uppercase truncate">{pejabatTl || '—'}</span>
           </div>
         </div>
 
         <div className="grid grid-cols-3 text-center min-h-[95px] mt-2">
           <div className="p-1 flex flex-col justify-between">
             <span className="font-bold leading-tight">Mengesahkan,<br />MUP3 Salatiga</span>
-            <span className="font-bold underline uppercase mt-6 truncate">{pejabatMup3 || '—'}</span>
+            <div className="h-10 flex items-center justify-center relative my-0.5">
+              {ttdMup3 ? (
+                <img src={ttdMup3} alt="Ttd MUP3" className="h-10 max-w-[110px] object-contain mix-blend-multiply" />
+              ) : null}
+            </div>
+            <span className="font-bold underline uppercase truncate">{pejabatMup3 || '—'}</span>
           </div>
           <div className="p-1 flex flex-col justify-between">
             <span className="font-bold leading-tight">Mengetahui,<br />ASMAN NPS</span>
-            <span className="font-bold underline uppercase mt-6 truncate">{pejabatAsman || '—'}</span>
+            <div className="h-10 flex items-center justify-center relative my-0.5">
+              {ttdAsman ? (
+                <img src={ttdAsman} alt="Ttd ASMAN" className="h-10 max-w-[110px] object-contain mix-blend-multiply" />
+              ) : null}
+            </div>
+            <span className="font-bold underline uppercase truncate">{pejabatAsman || '—'}</span>
           </div>
           <div className="p-1 flex flex-col justify-between">
             <span className="font-bold leading-tight">Menyetujui,<br />MULP Salatiga Kota</span>
-            <span className="font-bold underline uppercase mt-6 truncate">{pejabatMulp || '—'}</span>
+            <div className="h-10 flex items-center justify-center relative my-0.5">
+              {ttdMulp ? (
+                <img src={ttdMulp} alt="Ttd MULP" className="h-10 max-w-[110px] object-contain mix-blend-multiply" />
+              ) : null}
+            </div>
+            <span className="font-bold underline uppercase truncate">{pejabatMulp || '—'}</span>
           </div>
         </div>
       </div>
