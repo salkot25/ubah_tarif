@@ -32,7 +32,7 @@ export const Select = forwardRef(function Select({
           {...props}
         >
           {options.map(opt => (
-            <option key={opt.value} value={opt.value} disabled={opt.disabled}>
+            <option key={opt.value} value={opt.value} disabled={opt.disabled} className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">
               {opt.label}
             </option>
           ))}

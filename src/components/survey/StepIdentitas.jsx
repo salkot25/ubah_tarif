@@ -10,11 +10,11 @@ import { formatDateForInput } from '../../config/constants';
 export function StepIdentitas({ data, onChange, errors }) {
   return (
     <div className="space-y-5">
-      <div className="bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 flex items-start gap-3">
-        <User size={18} className="text-blue-600 flex-shrink-0 mt-0.5" />
+      <div className="bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 rounded-xl px-4 py-3 flex items-start gap-3">
+        <User size={18} className="text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
         <div>
-          <p className="text-sm font-medium text-blue-800">Data Identitas Pelanggan & Penugasan</p>
-          <p className="text-xs text-blue-600 mt-0.5">Isi IDPEL, nama, alamat, nomor surat tugas, dan nomor berita acara</p>
+          <p className="text-sm font-medium text-blue-800 dark:text-blue-300">Data Identitas Pelanggan & Penugasan</p>
+          <p className="text-xs text-blue-600 dark:text-blue-400 mt-0.5">Isi IDPEL, nama, alamat, nomor surat tugas, dan nomor berita acara</p>
         </div>
       </div>
 

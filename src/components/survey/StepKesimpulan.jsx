@@ -86,11 +86,11 @@ export function StepKesimpulan({ data, onChange, errors }) {
 
   return (
     <div className="space-y-5">
-      <div className="bg-emerald-50 border border-emerald-100 rounded-xl px-4 py-3 flex items-start gap-3">
-        <ClipboardCheck size={18} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+      <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900/50 rounded-xl px-4 py-3 flex items-start gap-3">
+        <ClipboardCheck size={18} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
         <div>
-          <p className="text-sm font-medium text-emerald-800">Kesimpulan & Dokumentasi</p>
-          <p className="text-xs text-emerald-600 mt-0.5">Evaluasi hasil survey, inventarisasi daya, dan upload foto</p>
+          <p className="text-sm font-medium text-emerald-800 dark:text-emerald-300">Kesimpulan & Dokumentasi</p>
+          <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-0.5">Evaluasi hasil survey, inventarisasi daya, dan upload foto</p>
         </div>
       </div>
 
@@ -138,16 +138,16 @@ export function StepKesimpulan({ data, onChange, errors }) {
       </div>
 
       {/* Appliance Inventories */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-3 border-t border-slate-100">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-3 border-t border-slate-100 dark:border-slate-800">
         {/* Household Appliances (RT) */}
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <h4 className="text-sm font-bold text-slate-700">Inventarisasi Rumah Tangga</h4>
+            <h4 className="text-sm font-bold text-slate-700 dark:text-slate-200">Inventarisasi Rumah Tangga</h4>
             <Button size="xs" variant="secondary" icon={Plus} onClick={addRTRow} type="button">Tambah</Button>
           </div>
           <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
             {appliancesRT.map((item, i) => (
-              <div key={i} className="flex gap-2 items-center bg-slate-50 p-2 rounded-xl border border-slate-200">
+              <div key={i} className="flex gap-2 items-center bg-slate-50 dark:bg-slate-800 p-2 rounded-xl border border-slate-200 dark:border-slate-700">
                 <Input
                   value={item.name}
                   onChange={e => handleRTChange(i, 'name', e.target.value)}
@@ -171,27 +171,27 @@ export function StepKesimpulan({ data, onChange, errors }) {
                   className="w-16 h-8 text-center px-1"
                   placeholder="Watt"
                 />
-                <button type="button" onClick={() => deleteRTRow(i)} className="text-red-500 p-1 hover:bg-red-50 rounded-lg">
+                <button type="button" onClick={() => deleteRTRow(i)} className="text-red-500 hover:text-red-700 p-1 hover:bg-red-50 dark:hover:bg-red-950/50 rounded-lg transition-colors">
                   <Trash size={14} />
                 </button>
               </div>
             ))}
           </div>
-          <div className="flex justify-between items-center text-xs text-slate-500 font-semibold px-2">
+          <div className="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 font-semibold px-2">
             <span>Total Daya Rumah Tangga:</span>
-            <span className="font-mono text-slate-700">{totalRT} W</span>
+            <span className="font-mono text-slate-700 dark:text-slate-200 font-bold">{totalRT} W</span>
           </div>
         </div>
 
         {/* Commercial/Other Appliances (PL) */}
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <h4 className="text-sm font-bold text-slate-700">Inventarisasi Peruntukan Lain</h4>
+            <h4 className="text-sm font-bold text-slate-700 dark:text-slate-200">Inventarisasi Peruntukan Lain</h4>
             <Button size="xs" variant="secondary" icon={Plus} onClick={addPLRow} type="button">Tambah</Button>
           </div>
           <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
             {appliancesPL.map((item, i) => (
-              <div key={i} className="flex gap-2 items-center bg-slate-50 p-2 rounded-xl border border-slate-200">
+              <div key={i} className="flex gap-2 items-center bg-slate-50 dark:bg-slate-800 p-2 rounded-xl border border-slate-200 dark:border-slate-700">
                 <Input
                   value={item.name}
                   onChange={e => handlePLChange(i, 'name', e.target.value)}
@@ -215,15 +215,15 @@ export function StepKesimpulan({ data, onChange, errors }) {
                   className="w-16 h-8 text-center px-1"
                   placeholder="Watt"
                 />
-                <button type="button" onClick={() => deletePLRow(i)} className="text-red-500 p-1 hover:bg-red-50 rounded-lg">
+                <button type="button" onClick={() => deletePLRow(i)} className="text-red-500 hover:text-red-700 p-1 hover:bg-red-50 dark:hover:bg-red-950/50 rounded-lg transition-colors">
                   <Trash size={14} />
                 </button>
               </div>
             ))}
           </div>
-          <div className="flex justify-between items-center text-xs text-slate-500 font-semibold px-2">
+          <div className="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 font-semibold px-2">
             <span>Total Daya Peruntukan Lain:</span>
-            <span className="font-mono text-slate-700">{totalPL} W</span>
+            <span className="font-mono text-slate-700 dark:text-slate-200 font-bold">{totalPL} W</span>
           </div>
         </div>
       </div>
@@ -239,7 +239,7 @@ export function StepKesimpulan({ data, onChange, errors }) {
       />
 
       {/* Photo Upload Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-3 border-t border-slate-100">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-3 border-t border-slate-100 dark:border-slate-800">
         <PhotoUploadField
           label="Foto Rumah"
           hint="Foto tampak depan rumah/lokasi pelanggan"
@@ -285,21 +285,21 @@ function PhotoUploadField({ label, hint, value, onChange, onUpload, uploading, i
             w-full border-2 border-dashed rounded-xl p-4 flex flex-col items-center gap-2
             transition-colors duration-150 cursor-pointer
             ${uploading
-              ? 'border-slate-300 bg-slate-50 cursor-not-allowed'
-              : 'border-slate-300 bg-white hover:border-blue-400 hover:bg-blue-50'
+              ? 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 cursor-not-allowed'
+              : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50/50 dark:hover:bg-blue-950/30'
             }
           `}
         >
           {uploading ? (
             <>
               <Loader2 size={20} className="text-blue-500 animate-spin" />
-              <span className="text-xs text-slate-500">Mengupload ke Drive...</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">Mengupload ke Drive...</span>
             </>
           ) : (
             <>
-              <Upload size={20} className="text-slate-400" />
-              <span className="text-xs text-slate-500 font-semibold">Upload Foto Baru</span>
-              <span className="text-[10px] text-slate-400">JPG, PNG maks 5MB</span>
+              <Upload size={20} className="text-slate-400 dark:text-slate-500" />
+              <span className="text-xs text-slate-600 dark:text-slate-300 font-semibold">Upload Foto Baru</span>
+              <span className="text-[10px] text-slate-400 dark:text-slate-500">JPG, PNG maks 5MB</span>
             </>
           )}
         </button>
@@ -315,7 +315,7 @@ function PhotoUploadField({ label, hint, value, onChange, onUpload, uploading, i
         {urls.length > 0 && (
           <div className="grid grid-cols-2 gap-2">
             {urls.map((url, index) => (
-              <div key={index} className="relative group border border-slate-200 rounded-lg overflow-hidden bg-slate-50">
+              <div key={index} className="relative group border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-800">
                 <img 
                   src={url} 
                   alt={`${label} ${index + 1}`} 

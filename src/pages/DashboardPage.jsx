@@ -115,32 +115,32 @@ export default function DashboardPage() {
             </Card>
 
             <Card className="p-4 bg-gradient-to-br from-white dark:from-slate-800 to-emerald-50/40 dark:to-emerald-900/10 border border-emerald-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
-              <div className="flex items-center justify-between text-slate-500 mb-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Selesai</span>
-                <CheckCircle2 size={14} className="text-emerald-600" />
+              <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 mb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Selesai</span>
+                <CheckCircle2 size={14} className="text-emerald-600 dark:text-emerald-400" />
               </div>
-              <p className="text-2xl font-black text-emerald-700">{pStats.selesai}</p>
+              <p className="text-2xl font-black text-emerald-700 dark:text-emerald-400">{pStats.selesai}</p>
               <div className="w-full bg-emerald-100 dark:bg-emerald-900/40 h-1.5 rounded-full mt-2 overflow-hidden">
                 <div className="bg-emerald-500 h-full rounded-full" style={{ width: `${pctPermohonanSelesai}%` }} />
               </div>
             </Card>
 
             <Card className="p-4 bg-gradient-to-br from-white dark:from-slate-800 to-amber-50/40 dark:to-amber-900/10 border border-amber-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
-              <div className="flex items-center justify-between text-slate-500 mb-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700">Draft</span>
-                <AlertTriangle size={14} className="text-amber-600" />
+              <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 mb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">Draft</span>
+                <AlertTriangle size={14} className="text-amber-600 dark:text-amber-400" />
               </div>
-              <p className="text-2xl font-black text-amber-700">{pStats.draft}</p>
-              <p className="text-[10px] text-amber-600/80 mt-1 font-medium">Perlu Melengkapi</p>
+              <p className="text-2xl font-black text-amber-700 dark:text-amber-400">{pStats.draft}</p>
+              <p className="text-[10px] text-amber-600/80 dark:text-amber-400/80 mt-1 font-medium">Perlu Melengkapi</p>
             </Card>
 
             <Card className="p-4 bg-gradient-to-br from-white dark:from-slate-800 to-slate-50 dark:to-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
-              <div className="flex items-center justify-between text-slate-500 mb-2">
+              <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-[10px] font-bold uppercase tracking-wider">Belum</span>
-                <Clock size={14} className="text-slate-400" />
+                <Clock size={14} className="text-slate-400 dark:text-slate-500" />
               </div>
-              <p className="text-2xl font-black text-slate-600">{pStats.belum}</p>
-              <p className="text-[10px] text-slate-400 mt-1 font-medium">Belum Diisi</p>
+              <p className="text-2xl font-black text-slate-600 dark:text-slate-300">{pStats.belum}</p>
+              <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-medium">Belum Diisi</p>
             </Card>
           </div>
         </div>
@@ -170,32 +170,32 @@ export default function DashboardPage() {
             </Card>
 
             <Card className="p-4 bg-gradient-to-br from-white dark:from-slate-800 to-teal-50/40 dark:to-teal-900/10 border border-teal-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
-              <div className="flex items-center justify-between text-slate-500 mb-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-teal-700">Surveyed</span>
-                <CheckCircle2 size={14} className="text-teal-600" />
+              <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 mb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-teal-700 dark:text-teal-400">Surveyed</span>
+                <CheckCircle2 size={14} className="text-teal-600 dark:text-teal-400" />
               </div>
-              <p className="text-2xl font-black text-teal-700">{sStats.selesai}</p>
+              <p className="text-2xl font-black text-teal-700 dark:text-teal-400">{sStats.selesai}</p>
               <div className="w-full bg-teal-100 dark:bg-teal-900/40 h-1.5 rounded-full mt-2 overflow-hidden">
                 <div className="bg-teal-500 h-full rounded-full" style={{ width: `${pctSurveySelesai}%` }} />
               </div>
             </Card>
 
             <Card className="p-4 bg-gradient-to-br from-white dark:from-slate-800 to-orange-50/40 dark:to-orange-900/10 border border-orange-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
-              <div className="flex items-center justify-between text-slate-500 mb-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-orange-700">Draft</span>
-                <AlertTriangle size={14} className="text-orange-600" />
+              <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 mb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-orange-700 dark:text-orange-400">Draft</span>
+                <AlertTriangle size={14} className="text-orange-600 dark:text-orange-400" />
               </div>
-              <p className="text-2xl font-black text-orange-700">{sStats.draft}</p>
-              <p className="text-[10px] text-orange-600/80 mt-1 font-medium">Belum Lengkap</p>
+              <p className="text-2xl font-black text-orange-700 dark:text-orange-400">{sStats.draft}</p>
+              <p className="text-[10px] text-orange-600/80 dark:text-orange-400/80 mt-1 font-medium">Belum Lengkap</p>
             </Card>
 
             <Card className="p-4 bg-gradient-to-br from-white dark:from-slate-800 to-rose-50/40 dark:to-rose-900/10 border border-rose-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
-              <div className="flex items-center justify-between text-slate-500 mb-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-rose-700">Belum</span>
-                <Clock size={14} className="text-rose-500" />
+              <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 mb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-rose-700 dark:text-rose-400">Belum</span>
+                <Clock size={14} className="text-rose-500 dark:text-rose-400" />
               </div>
-              <p className="text-2xl font-black text-rose-600">{sStats.belum}</p>
-              <p className="text-[10px] text-rose-500/80 mt-1 font-medium">Belum Didatangi</p>
+              <p className="text-2xl font-black text-rose-600 dark:text-rose-400">{sStats.belum}</p>
+              <p className="text-[10px] text-rose-500/80 dark:text-rose-400/80 mt-1 font-medium">Belum Didatangi</p>
             </Card>
           </div>
         </div>
@@ -209,11 +209,11 @@ export default function DashboardPage() {
         <Card className="p-5 border border-slate-200/90 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100 dark:border-slate-800">
             <div>
-              <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-                <Layers size={16} className="text-blue-600" />
+              <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                <Layers size={16} className="text-blue-600 dark:text-blue-400" />
                 Distribusi Peruntukan Listrik Pelanggan
               </h3>
-              <p className="text-[11px] text-slate-500 mt-0.5">Klasifikasi sektor penggunaan persil bangunan</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Klasifikasi sektor penggunaan persil bangunan</p>
             </div>
           </div>
           {peruntukanData.length > 0 ? (
@@ -225,7 +225,7 @@ export default function DashboardPage() {
                     <stop offset="100%" stopColor="#1d4ed8" stopOpacity={0.85} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
                 <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#94a3b8', fontWeight: 500 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} allowDecimals={false} />
                 <Tooltip 
@@ -236,7 +236,7 @@ export default function DashboardPage() {
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <div className="text-center py-14 text-slate-400 text-xs font-medium">Belum ada data distribusi</div>
+            <div className="text-center py-14 text-slate-400 dark:text-slate-500 text-xs font-medium">Belum ada data distribusi</div>
           )}
         </Card>
 
@@ -244,11 +244,11 @@ export default function DashboardPage() {
         <Card className="p-5 border border-slate-200/90 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100 dark:border-slate-800">
             <div>
-              <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-                <ShieldCheck size={16} className="text-emerald-600" />
+              <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                <ShieldCheck size={16} className="text-emerald-600 dark:text-emerald-400" />
                 Hasil Kesimpulan SPI Survey Lapangan
               </h3>
-              <p className="text-[11px] text-slate-500 mt-0.5">Evaluasi kesesuaian peruntukan vs golongan tarif</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Evaluasi kesesuaian peruntukan vs golongan tarif</p>
             </div>
           </div>
           {spiData.length > 0 ? (
@@ -271,11 +271,11 @@ export default function DashboardPage() {
                   ))}
                 </Pie>
                 <Tooltip contentStyle={{ borderRadius: '14px', border: '1px solid #334155', fontSize: '12px', background: '#1e293b', color: '#f1f5f9' }} />
-                <Legend formatter={(val) => <span className="text-xs text-slate-300 font-semibold px-1">{val}</span>} />
+                <Legend formatter={(val) => <span className="text-xs text-slate-600 dark:text-slate-300 font-semibold px-1">{val}</span>} />
               </PieChart>
             </ResponsiveContainer>
           ) : (
-            <div className="text-center py-14 text-slate-400 text-xs font-medium">Belum ada data kesimpulan</div>
+            <div className="text-center py-14 text-slate-400 dark:text-slate-500 text-xs font-medium">Belum ada data kesimpulan</div>
           )}
         </Card>
 
@@ -283,11 +283,11 @@ export default function DashboardPage() {
         <Card className="p-5 border border-slate-200/90 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100 dark:border-slate-800">
             <div>
-              <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-                <Clock size={16} className="text-indigo-600" />
+              <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                <Clock size={16} className="text-indigo-600 dark:text-indigo-400" />
                 Saluran Media Permohonan Pelanggan
               </h3>
-              <p className="text-[11px] text-slate-500 mt-0.5">Kanal pendaftaran pengajuan permohonan</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Kanal pendaftaran pengajuan permohonan</p>
             </div>
           </div>
           {mediaData.length > 0 ? (
@@ -299,7 +299,7 @@ export default function DashboardPage() {
                     <stop offset="100%" stopColor="#4338ca" stopOpacity={0.9} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" horizontal={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#334155" horizontal={false} />
                 <XAxis type="number" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} allowDecimals={false} />
                 <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fill: '#94a3b8', fontWeight: 600 }} width={110} axisLine={false} tickLine={false} />
                 <Tooltip contentStyle={{ borderRadius: '14px', border: '1px solid #334155', fontSize: '12px', background: '#1e293b', color: '#f1f5f9' }} />
@@ -307,7 +307,7 @@ export default function DashboardPage() {
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <div className="text-center py-14 text-slate-400 text-xs font-medium">Belum ada data media</div>
+            <div className="text-center py-14 text-slate-400 dark:text-slate-500 text-xs font-medium">Belum ada data media</div>
           )}
         </Card>
 
@@ -315,11 +315,11 @@ export default function DashboardPage() {
         <Card className="p-5 border border-slate-200/90 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100 dark:border-slate-800">
             <div>
-              <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-                <ArrowUpRight size={16} className="text-teal-600" />
+              <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                <ArrowUpRight size={16} className="text-teal-600 dark:text-teal-400" />
                 Pengajuan Golongan Tarif Baru
               </h3>
-              <p className="text-[11px] text-slate-500 mt-0.5">Target tarif penyesuaian yang diajukan</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Target tarif penyesuaian yang diajukan</p>
             </div>
           </div>
           {tarifBaruData.length > 0 ? (
@@ -331,7 +331,7 @@ export default function DashboardPage() {
                     <stop offset="100%" stopColor="#0f766e" stopOpacity={0.85} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
                 <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#94a3b8', fontWeight: 500 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} allowDecimals={false} />
                 <Tooltip contentStyle={{ borderRadius: '14px', border: '1px solid #334155', fontSize: '12px', background: '#1e293b', color: '#f1f5f9' }} />
@@ -339,7 +339,7 @@ export default function DashboardPage() {
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <div className="text-center py-14 text-slate-400 text-xs font-medium">Belum ada data tarif</div>
+            <div className="text-center py-14 text-slate-400 dark:text-slate-500 text-xs font-medium">Belum ada data tarif</div>
           )}
         </Card>
 

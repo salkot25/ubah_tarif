@@ -463,18 +463,18 @@ export default function SettingsPage() {
           </button>
 
           <Card className={`p-5 sm:p-6 space-y-4 ${userViewMode === 'grid' ? 'bg-transparent border-0 shadow-none p-0' : ''}`}>
-            <div className="flex items-center justify-between border-b border-slate-200/80 pb-4 flex-wrap gap-3 bg-white p-4 rounded-2xl shadow-xs">
-              <div className="flex items-center gap-2 text-slate-800 font-bold text-sm uppercase tracking-wider">
-                <Users size={16} className="text-blue-600" />
+            <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-700/80 pb-4 flex-wrap gap-3 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xs transition-colors">
+              <div className="flex items-center gap-2 text-slate-800 dark:text-slate-100 font-bold text-sm uppercase tracking-wider">
+                <Users size={16} className="text-blue-600 dark:text-blue-400" />
                 <span>Daftar User Database</span>
               </div>
 
               <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
                 {/* View Mode Switcher */}
-                <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
+                <div className="flex items-center bg-slate-100 dark:bg-slate-700 p-1 rounded-xl border border-slate-200 dark:border-slate-600">
                   <button
                     onClick={() => { setUserViewMode('list'); localStorage.setItem('SETTING_USER_VIEW_MODE', 'list'); }}
-                    className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${userViewMode === 'list' ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-500 hover:text-slate-800'}`}
+                    className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${userViewMode === 'list' ? 'bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'}`}
                     title="Tampilan Tabel (List View)"
                   >
                     <List size={16} />
@@ -482,7 +482,7 @@ export default function SettingsPage() {
                   </button>
                   <button
                     onClick={() => { setUserViewMode('grid'); localStorage.setItem('SETTING_USER_VIEW_MODE', 'grid'); }}
-                    className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${userViewMode === 'grid' ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-500 hover:text-slate-800'}`}
+                    className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${userViewMode === 'grid' ? 'bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'}`}
                     title="Tampilan Kartu (Grid View)"
                   >
                     <LayoutGrid size={16} />
@@ -504,19 +504,19 @@ export default function SettingsPage() {
             </div>
 
             {usersLoading ? (
-              <div className="py-12 bg-white rounded-2xl border border-slate-200"><PageLoader /></div>
+              <div className="py-12 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700"><PageLoader /></div>
             ) : usersError ? (
-              <div className="py-8 text-center space-y-2 bg-white rounded-2xl border border-slate-200">
-                <p className="text-red-500 text-sm font-semibold">{usersError}</p>
+              <div className="py-8 text-center space-y-2 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+                <p className="text-red-500 dark:text-red-400 text-sm font-semibold">{usersError}</p>
                 <Button size="sm" variant="secondary" onClick={fetchUsersList}>Coba Lagi</Button>
               </div>
             ) : users.length === 0 ? (
-              <div className="bg-white rounded-2xl border border-slate-200 py-10">
-                <p className="text-sm text-slate-400 italic text-center">Tidak ada data user terdaftar</p>
+              <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 py-10">
+                <p className="text-sm text-slate-400 dark:text-slate-500 italic text-center">Tidak ada data user terdaftar</p>
               </div>
             ) : userViewMode === 'list' ? (
               /* List View Table */
-              <div className="table-wrapper border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-white">
+              <div className="table-wrapper border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden shadow-sm bg-white dark:bg-slate-800">
                 <table className="data-table">
                   <thead>
                     <tr>
@@ -530,11 +530,11 @@ export default function SettingsPage() {
                   <tbody>
                     {users.map((row) => (
                       <tr key={row.username}>
-                        <td className="font-bold text-slate-700">{row.nama}</td>
-                        <td className="font-mono text-xs text-slate-500">{row.username}</td>
+                        <td className="font-bold text-slate-700 dark:text-slate-200">{row.nama}</td>
+                        <td className="font-mono text-xs text-slate-500 dark:text-slate-400">{row.username}</td>
                         <td>
                           <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded border ${
-                            row.role === 'admin' ? 'bg-blue-50 text-blue-700 border-blue-100' : 'bg-slate-50 text-slate-600 border-slate-200'
+                            row.role === 'admin' ? 'bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border-blue-100 dark:border-blue-800' : 'bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-600'
                           }`}>
                             {row.role}
                           </span>
@@ -542,8 +542,8 @@ export default function SettingsPage() {
                         <td>
                           <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
                             row.status === 'aktif'
-                              ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
-                              : 'bg-red-50 text-red-700 border-red-100'
+                              ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-100 dark:border-emerald-800'
+                              : 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 border-red-100 dark:border-red-800'
                           }`}>
                             {row.status === 'aktif' ? <CheckCircle size={10} /> : <XCircle size={10} />}
                             {row.status === 'aktif' ? 'Aktif' : 'Nonaktif'}
@@ -553,7 +553,7 @@ export default function SettingsPage() {
                           <div className="flex items-center justify-center gap-1.5">
                             <button
                               onClick={() => handleOpenUserModal(true, row)}
-                              className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-colors"
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-slate-700 transition-colors"
                               title="Edit User / Ganti Password"
                             >
                               <Edit2 size={14} />
@@ -562,8 +562,8 @@ export default function SettingsPage() {
                               onClick={() => handleDeleteUserClick(row.username)}
                               className={`p-1.5 rounded-lg transition-colors ${
                                 row.username.toLowerCase() === 'admin' || row.username.toLowerCase() === currentUser?.username.toLowerCase()
-                                  ? 'text-slate-200 cursor-not-allowed'
-                                  : 'text-slate-400 hover:text-red-600 hover:bg-red-50'
+                                  ? 'text-slate-200 dark:text-slate-700 cursor-not-allowed'
+                                  : 'text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-slate-700'
                               }`}
                               disabled={row.username.toLowerCase() === 'admin' || row.username.toLowerCase() === currentUser?.username.toLowerCase()}
                               title="Hapus Akun User"
@@ -581,30 +581,30 @@ export default function SettingsPage() {
               /* Grid View Cards */
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {users.map((row) => (
-                  <div key={row.username} className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-3.5 flex flex-col justify-between">
+                  <div key={row.username} className="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200/90 dark:border-slate-700 shadow-sm hover:shadow-md transition-all space-y-3.5 flex flex-col justify-between">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 text-white font-bold flex items-center justify-center text-sm shadow-xs flex-shrink-0">
                           {row.nama ? row.nama.substring(0, 2).toUpperCase() : 'US'}
                         </div>
                         <div className="min-w-0">
-                          <h4 className="font-bold text-sm text-slate-800 truncate">{row.nama}</h4>
-                          <p className="font-mono text-xs text-slate-500 truncate">@{row.username}</p>
+                          <h4 className="font-bold text-sm text-slate-800 dark:text-slate-100 truncate">{row.nama}</h4>
+                          <p className="font-mono text-xs text-slate-500 dark:text-slate-400 truncate">@{row.username}</p>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 pt-2 border-t border-slate-100 justify-between">
+                    <div className="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-700 justify-between">
                       <div className="flex items-center gap-1.5">
                         <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded border ${
-                          row.role === 'admin' ? 'bg-blue-50 text-blue-700 border-blue-100' : 'bg-slate-50 text-slate-600 border-slate-200'
+                          row.role === 'admin' ? 'bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border-blue-100 dark:border-blue-800' : 'bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-600'
                         }`}>
                           {row.role}
                         </span>
                         <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border ${
                           row.status === 'aktif'
-                            ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
-                            : 'bg-red-50 text-red-700 border-red-100'
+                            ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-100 dark:border-emerald-800'
+                            : 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 border-red-100 dark:border-red-800'
                         }`}>
                           {row.status === 'aktif' ? 'Aktif' : 'Nonaktif'}
                         </span>
@@ -613,17 +613,17 @@ export default function SettingsPage() {
                       <div className="flex items-center gap-1">
                         <button
                           onClick={() => handleOpenUserModal(true, row)}
-                          className="p-1.5 rounded-lg text-slate-500 hover:text-amber-600 hover:bg-amber-50 transition-colors border border-slate-200/70"
+                          className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-slate-700 transition-colors border border-slate-200/70 dark:border-slate-700"
                           title="Edit User / Ganti Password"
                         >
                           <Edit2 size={14} />
                         </button>
                         <button
                           onClick={() => handleDeleteUserClick(row.username)}
-                          className={`p-1.5 rounded-lg transition-colors border border-slate-200/70 ${
+                          className={`p-1.5 rounded-lg transition-colors border border-slate-200/70 dark:border-slate-700 ${
                             row.username.toLowerCase() === 'admin' || row.username.toLowerCase() === currentUser?.username.toLowerCase()
-                              ? 'text-slate-300 bg-slate-50 border-transparent cursor-not-allowed'
-                              : 'text-slate-500 hover:text-red-600 hover:bg-red-50'
+                              ? 'text-slate-300 dark:text-slate-600 bg-slate-50 dark:bg-slate-900 border-transparent cursor-not-allowed'
+                              : 'text-slate-500 dark:text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-slate-700'
                           }`}
                           disabled={row.username.toLowerCase() === 'admin' || row.username.toLowerCase() === currentUser?.username.toLowerCase()}
                           title="Hapus Akun User"
@@ -650,7 +650,7 @@ export default function SettingsPage() {
         <form onSubmit={handleSaveUser} className="space-y-4">
           <div className="space-y-3">
             <div>
-              <label className="text-xs font-semibold text-slate-500 block mb-1">Nama Lengkap</label>
+              <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">Nama Lengkap</label>
               <Input
                 type="text"
                 value={userForm.nama}
@@ -660,7 +660,7 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-slate-500 block mb-1">Username (Lower case)</label>
+              <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">Username (Lower case)</label>
               <Input
                 type="text"
                 value={userForm.username}
@@ -671,7 +671,7 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-slate-500 block mb-1">
+              <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">
                 {userModal.isEdit ? 'Ganti Password (Kosongkan jika tidak diubah)' : 'Password Awal'}
               </label>
               <Input
@@ -685,7 +685,7 @@ export default function SettingsPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-semibold text-slate-500 block mb-1">Hak Akses (Role)</label>
+                <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">Hak Akses (Role)</label>
                 <Select
                   options={[
                     { value: 'petugas', label: 'Petugas / Surveyor' },
@@ -697,7 +697,7 @@ export default function SettingsPage() {
                 />
               </div>
               <div>
-                <label className="text-xs font-semibold text-slate-500 block mb-1">Status Keaktifan</label>
+                <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1">Status Keaktifan</label>
                 <Select
                   options={[
                     { value: 'aktif', label: 'Aktif' },
@@ -711,7 +711,7 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-4 border-t border-slate-100">
+          <div className="flex justify-end gap-2 pt-4 border-t border-slate-100 dark:border-slate-700">
             <Button
               type="button"
               variant="secondary"

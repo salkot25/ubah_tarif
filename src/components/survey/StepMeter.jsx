@@ -22,11 +22,11 @@ export function StepMeter({ data, onChange, errors }) {
 
   return (
     <div className="space-y-5">
-      <div className="bg-emerald-50 border border-emerald-100 rounded-xl px-4 py-3 flex items-start gap-3">
-        <Gauge size={18} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+      <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900/50 rounded-xl px-4 py-3 flex items-start gap-3">
+        <Gauge size={18} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
         <div>
-          <p className="text-sm font-medium text-emerald-800">Data KWH Meter</p>
-          <p className="text-xs text-emerald-600 mt-0.5">Identitas meter listrik yang terpasang di lokasi</p>
+          <p className="text-sm font-medium text-emerald-800 dark:text-emerald-300">Data KWH Meter</p>
+          <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-0.5">Identitas meter listrik yang terpasang di lokasi</p>
         </div>
       </div>
 

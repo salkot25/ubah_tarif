@@ -253,12 +253,12 @@ export function SurveyForm({ onSubmit, initialData = {}, isEdit = false, submitt
                     <div className={`step-dot-${state}`}>
                       {state === 'done' ? <CheckCircle2 size={14} /> : <Icon size={13} />}
                     </div>
-                    <span className={`text-[10px] font-semibold hidden sm:block ${state === 'active' ? 'text-blue-700' : state === 'done' ? 'text-emerald-600' : 'text-slate-400'}`}>
+                    <span className={`text-[10px] font-semibold hidden sm:block ${state === 'active' ? 'text-blue-700 dark:text-blue-400' : state === 'done' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'}`}>
                       {s.title}
                     </span>
                   </div>
                   {i < FORM_STEPS.length - 1 && (
-                    <div className={`flex-1 h-0.5 rounded-full transition-colors duration-500 ${i < step ? 'bg-emerald-400' : 'bg-slate-200'}`} />
+                    <div className={`flex-1 h-0.5 rounded-full transition-colors duration-500 ${i < step ? 'bg-emerald-400 dark:bg-emerald-500' : 'bg-slate-200 dark:bg-slate-700'}`} />
                   )}
                 </React.Fragment>
               );

@@ -39,11 +39,11 @@ export function StepPengukuran({ data, onChange, errors }) {
 
   return (
     <div className="space-y-5">
-      <div className="bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 flex items-start gap-3">
-        <Activity size={18} className="text-blue-600 flex-shrink-0 mt-0.5" />
+      <div className="bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 rounded-xl px-4 py-3 flex items-start gap-3">
+        <Activity size={18} className="text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
         <div>
-          <p className="text-sm font-medium text-blue-800">Hasil Pengukuran & SLTR</p>
-          <p className="text-xs text-blue-600 mt-0.5">Isi hasil pembacaan meter, pengukuran teknis, dan detail Saluran Luar Tegangan Rendah (SLTR)</p>
+          <p className="text-sm font-medium text-blue-800 dark:text-blue-300">Hasil Pengukuran & SLTR</p>
+          <p className="text-xs text-blue-600 dark:text-blue-400 mt-0.5">Isi hasil pembacaan meter, pengukuran teknis, dan detail Saluran Luar Tegangan Rendah (SLTR)</p>
         </div>
       </div>
 
@@ -110,13 +110,13 @@ export function StepPengukuran({ data, onChange, errors }) {
 
       {/* Quick calculation display */}
       {data.METER_TEGANGAN && data.METER_ARUS && (
-        <div className="bg-slate-100 rounded-xl p-4 border border-slate-200">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Kalkulasi Daya Terukur</p>
-          <p className="text-xl font-bold text-slate-800">
+        <div className="bg-slate-100 dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Kalkulasi Daya Terukur</p>
+          <p className="text-xl font-bold text-slate-800 dark:text-slate-100">
             {(parseFloat(data.METER_TEGANGAN) * parseFloat(data.METER_ARUS)).toFixed(2)}
-            <span className="text-sm font-normal text-slate-500 ml-1">VA</span>
+            <span className="text-sm font-normal text-slate-500 dark:text-slate-400 ml-1">VA</span>
           </p>
-          <p className="text-xs text-slate-500 mt-1">V × I = {data.METER_TEGANGAN} × {data.METER_ARUS}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">V × I = {data.METER_TEGANGAN} × {data.METER_ARUS}</p>
         </div>
       )}
 
