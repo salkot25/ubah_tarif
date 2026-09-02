@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { 
   ChevronLeft, ChevronRight, Calendar as CalendarIcon, 
-  FileText, Activity, Clock, CheckCircle2, AlertTriangle, User, ArrowRight
+  FileText, Activity, Clock, ArrowRight, Info
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -179,138 +179,142 @@ export function CalendarPermohonanSurvey({ permohonans = [], surveys = [] }) {
   }, [selectedDateYMD]);
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-3xl p-5 sm:p-6 border border-slate-200/90 dark:border-slate-700/80 shadow-sm space-y-5 transition-colors">
+    <div className="bg-white dark:bg-slate-800 rounded-3xl p-5 sm:p-6 border border-slate-200/90 dark:border-slate-700/80 shadow-sm space-y-5 transition-colors flex flex-col justify-between h-full">
       
-      {/* Calendar Header & Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-700/80">
-        <div>
-          <h3 className="text-base font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 flex items-center justify-center font-bold">
+      <div className="space-y-4">
+        {/* Calendar Header & Controls */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-700/80">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 flex items-center justify-center font-bold shrink-0">
               <CalendarIcon size={18} />
             </div>
-            Kalender Permohonan & Survey
-          </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Jadwal pengajuan permohonan & kegiatan verifikasi survey lapangan per tanggal
-          </p>
+            <div>
+              <h3 className="text-base font-bold text-slate-800 dark:text-slate-100 leading-tight">
+                Kalender Permohonan & Survey
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Jadwal pengajuan permohonan & kegiatan verifikasi survey lapangan
+              </p>
+            </div>
+          </div>
+
+          {/* Month Selector Buttons */}
+          <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+            <button
+              onClick={handleToday}
+              className="px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-blue-700 dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-700 hover:bg-blue-50 dark:hover:bg-blue-950/60 rounded-xl transition-all border border-slate-200/80 dark:border-slate-600 shadow-2xs"
+            >
+              Hari Ini
+            </button>
+            
+            <div className="flex items-center bg-slate-100 dark:bg-slate-700/80 rounded-xl p-1 border border-slate-200/80 dark:border-slate-600 shadow-2xs">
+              <button
+                onClick={handlePrevMonth}
+                className="p-1 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-600 transition-colors"
+                title="Bulan Sebelumnya"
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <span className="px-2 text-xs font-bold text-slate-800 dark:text-slate-100 min-w-[110px] text-center">
+                {MONTH_NAMES[currentMonth]} {currentYear}
+              </span>
+              <button
+                onClick={handleNextMonth}
+                className="p-1 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-600 transition-colors"
+                title="Bulan Berikutnya"
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Month Selector Buttons */}
-        <div className="flex items-center gap-2 self-start sm:self-auto">
-          <button
-            onClick={handleToday}
-            className="px-2.5 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-700 hover:bg-blue-50 dark:hover:bg-blue-900/40 rounded-xl transition-all border border-slate-200/80 dark:border-slate-600"
-          >
-            Hari Ini
-          </button>
-          
-          <div className="flex items-center bg-slate-100 dark:bg-slate-700/80 rounded-xl p-1 border border-slate-200/80 dark:border-slate-600">
-            <button
-              onClick={handlePrevMonth}
-              className="p-1 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-600 transition-colors"
-              title="Bulan Sebelumnya"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <span className="px-3 text-xs font-bold text-slate-800 dark:text-slate-100 min-w-[120px] text-center">
-              {MONTH_NAMES[currentMonth]} {currentYear}
+        {/* Legend & Monthly Summary Pills */}
+        <div className="flex items-center justify-between flex-wrap gap-2.5 bg-slate-50/80 dark:bg-slate-900/40 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60 text-xs">
+          <div className="flex items-center gap-3.5">
+            <div className="flex items-center gap-1.5 font-bold text-slate-700 dark:text-slate-300">
+              <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-xs" />
+              <span>Permohonan Ubah Tarif</span>
+            </div>
+            <div className="flex items-center gap-1.5 font-bold text-slate-700 dark:text-slate-300">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-xs" />
+              <span>Survey Lapangan</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">Bulan {MONTH_NAMES[currentMonth]}:</span>
+            <span className="bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 px-2 py-0.5 rounded-lg font-bold text-[11px] border border-blue-200/60 dark:border-blue-800/60 shadow-2xs">
+              📘 {totalPermohonanMonth} Permohonan
             </span>
-            <button
-              onClick={handleNextMonth}
-              className="p-1 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-600 transition-colors"
-              title="Bulan Berikutnya"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Legend & Monthly Summary Pills */}
-      <div className="flex items-center justify-between flex-wrap gap-3 bg-slate-50 dark:bg-slate-900/40 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60 text-xs">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1.5 font-semibold text-slate-700 dark:text-slate-300">
-            <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-xs" />
-            <span>Permohonan Ubah Tarif</span>
-          </div>
-          <div className="flex items-center gap-1.5 font-semibold text-slate-700 dark:text-slate-300">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-xs" />
-            <span>Survey Lapangan</span>
+            <span className="bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded-lg font-bold text-[11px] border border-emerald-200/60 dark:border-emerald-800/60 shadow-2xs">
+              🟢 {totalSurveyMonth} Survey
+            </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Bulan {MONTH_NAMES[currentMonth]}:</span>
-          <span className="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 px-2 py-0.5 rounded-lg font-bold text-[11px] border border-blue-200/60 dark:border-blue-800/60">
-            📘 {totalPermohonanMonth} Permohonan
-          </span>
-          <span className="bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded-lg font-bold text-[11px] border border-emerald-200/60 dark:border-emerald-800/60">
-            🟢 {totalSurveyMonth} Survey
-          </span>
-        </div>
-      </div>
+        {/* Calendar Grid */}
+        <div className="overflow-x-auto">
+          <div className="min-w-[540px]">
+            {/* Day Name Header */}
+            <div className="grid grid-cols-7 gap-1 text-center font-extrabold text-[11px] text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">
+              {DAY_NAMES.map(day => (
+                <div key={day} className="py-1">{day}</div>
+              ))}
+            </div>
 
-      {/* Calendar Grid */}
-      <div className="overflow-x-auto">
-        <div className="min-w-[600px]">
-          {/* Day Name Header */}
-          <div className="grid grid-cols-7 gap-1 text-center font-bold text-xs text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">
-            {DAY_NAMES.map(day => (
-              <div key={day} className="py-1">{day}</div>
-            ))}
-          </div>
+            {/* Grid Cells */}
+            <div className="grid grid-cols-7 gap-1.5">
+              {calendarDays.map((item, idx) => {
+                const pCount = permohonanByDate[item.ymd]?.length || 0;
+                const sCount = surveyByDate[item.ymd]?.length || 0;
+                const isToday = item.ymd === todayYMD;
+                const isSelected = item.ymd === selectedDateYMD;
 
-          {/* Grid Cells */}
-          <div className="grid grid-cols-7 gap-1.5">
-            {calendarDays.map((item, idx) => {
-              const pCount = permohonanByDate[item.ymd]?.length || 0;
-              const sCount = surveyByDate[item.ymd]?.length || 0;
-              const isToday = item.ymd === todayYMD;
-              const isSelected = item.ymd === selectedDateYMD;
+                return (
+                  <div
+                    key={idx}
+                    onClick={() => setSelectedDateYMD(item.ymd)}
+                    className={`
+                      min-h-[58px] sm:min-h-[64px] p-1.5 sm:p-2 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between relative group
+                      ${!item.isCurrentMonth ? 'opacity-30 bg-slate-50/40 dark:bg-slate-900/10 border-transparent' : 'bg-white dark:bg-slate-800/90 border-slate-200/70 dark:border-slate-700/70 hover:border-blue-400 dark:hover:border-blue-500 shadow-2xs'}
+                      ${isToday ? 'ring-2 ring-blue-500/70 dark:ring-blue-400/80 font-black' : ''}
+                      ${isSelected ? 'bg-blue-50/80 dark:bg-blue-950/50 border-blue-500 dark:border-blue-500 shadow-sm' : ''}
+                    `}
+                  >
+                    {/* Top Bar: Date Number & Today Indicator */}
+                    <div className="flex items-center justify-between">
+                      <span className={`text-xs font-bold ${
+                        isToday ? 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/80 w-5 h-5 rounded-full flex items-center justify-center font-black' :
+                        item.isCurrentMonth ? 'text-slate-800 dark:text-slate-200' : 'text-slate-400 dark:text-slate-600'
+                      }`}>
+                        {item.dayNum}
+                      </span>
+                      {isToday && (
+                        <span className="text-[8px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-tighter hidden sm:inline">Hari ini</span>
+                      )}
+                    </div>
 
-              return (
-                <div
-                  key={idx}
-                  onClick={() => setSelectedDateYMD(item.ymd)}
-                  className={`
-                    min-h-[72px] sm:min-h-[82px] p-2 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between relative group
-                    ${!item.isCurrentMonth ? 'opacity-35 bg-slate-50/50 dark:bg-slate-900/20 border-transparent' : 'bg-white dark:bg-slate-800/80 border-slate-200/80 dark:border-slate-700/70 hover:border-blue-400 dark:hover:border-blue-500'}
-                    ${isToday ? 'ring-2 ring-blue-500/70 dark:ring-blue-400/80 font-black' : ''}
-                    ${isSelected ? 'bg-blue-50/70 dark:bg-blue-950/40 border-blue-500 dark:border-blue-500 shadow-sm' : ''}
-                  `}
-                >
-                  {/* Top Bar: Date Number & Today Indicator */}
-                  <div className="flex items-center justify-between">
-                    <span className={`text-xs font-bold ${
-                      isToday ? 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/60 w-5 h-5 rounded-full flex items-center justify-center' :
-                      item.isCurrentMonth ? 'text-slate-700 dark:text-slate-200' : 'text-slate-400 dark:text-slate-600'
-                    }`}>
-                      {item.dayNum}
-                    </span>
-                    {isToday && (
-                      <span className="text-[9px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-tighter">Hari ini</span>
-                    )}
+                    {/* Badges Count */}
+                    <div className="space-y-1 mt-1">
+                      {pCount > 0 && (
+                        <div className="bg-blue-100/90 dark:bg-blue-950 text-blue-800 dark:text-blue-300 text-[9px] font-bold px-1.5 py-0.25 rounded-md border border-blue-200/80 dark:border-blue-800/60 truncate flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                          <span className="truncate">{pCount} Permohonan</span>
+                        </div>
+                      )}
+
+                      {sCount > 0 && (
+                        <div className="bg-emerald-100/90 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-[9px] font-bold px-1.5 py-0.25 rounded-md border border-emerald-200/80 dark:border-emerald-800/60 truncate flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                          <span className="truncate">{sCount} Survey</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-
-                  {/* Badges Count */}
-                  <div className="space-y-1 mt-1">
-                    {pCount > 0 && (
-                      <div className="bg-blue-100 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 text-[10px] font-bold px-1.5 py-0.5 rounded-lg border border-blue-200 dark:border-blue-800/60 truncate flex items-center gap-1 shadow-2xs">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
-                        <span className="truncate">{pCount} Permohonan</span>
-                      </div>
-                    )}
-
-                    {sCount > 0 && (
-                      <div className="bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold px-1.5 py-0.5 rounded-lg border border-emerald-200 dark:border-emerald-800/60 truncate flex items-center gap-1 shadow-2xs">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-                        <span className="truncate">{sCount} Survey</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
@@ -319,37 +323,38 @@ export function CalendarPermohonanSurvey({ permohonans = [], surveys = [] }) {
       <div className="pt-3 border-t border-slate-100 dark:border-slate-700/80 space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Clock size={16} className="text-blue-600 dark:text-blue-400" />
+            <Clock size={15} className="text-blue-600 dark:text-blue-400" />
             <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
-              Agenda Permohonan & Survey: <span className="text-blue-600 dark:text-blue-400">{selectedDateFormatted}</span>
+              Agenda Hari: <span className="text-blue-600 dark:text-blue-400 font-extrabold">{selectedDateFormatted}</span>
             </h4>
           </div>
-          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2.5 py-0.5 rounded-full">
+          <span className="text-[10px] font-extrabold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 px-2.5 py-0.5 rounded-full border border-slate-200/60 dark:border-slate-600">
             {selectedPermohonans.length + selectedSurveys.length} Aktivitas
           </span>
         </div>
 
         {selectedPermohonans.length === 0 && selectedSurveys.length === 0 ? (
-          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-700/50 text-center text-xs text-slate-400 dark:text-slate-500 font-medium italic">
-            Tidak ada agenda permohonan atau survey pada tanggal {selectedDateFormatted}.
+          <div className="p-3 rounded-2xl bg-slate-50/80 dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-700/50 text-center text-xs text-slate-500 dark:text-slate-400 font-medium italic flex items-center justify-center gap-2">
+            <Info size={14} className="text-slate-400" />
+            <span>Tidak ada agenda permohonan atau survey pada tanggal {selectedDateFormatted}.</span>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* Permohonan List for selected date */}
             <div className="space-y-2">
-              <h5 className="text-[11px] font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider flex items-center gap-1.5">
-                <FileText size={14} /> Permohonan Ubah Tarif ({selectedPermohonans.length})
+              <h5 className="text-[10px] font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider flex items-center gap-1.5">
+                <FileText size={13} /> Permohonan Ubah Tarif ({selectedPermohonans.length})
               </h5>
               {selectedPermohonans.length === 0 ? (
                 <p className="text-xs text-slate-400 dark:text-slate-500 italic px-2">Tidak ada permohonan</p>
               ) : (
-                <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+                <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
                   {selectedPermohonans.map(item => (
-                    <div key={item.IDPEL} className="p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between gap-2 shadow-2xs">
+                    <div key={item.IDPEL} className="p-2 rounded-xl border border-slate-200/80 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between gap-2 shadow-2xs">
                       <div className="min-w-0">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5">
                           <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">{item.IDPEL}</span>
-                          <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 px-1.5 py-0.25 rounded">{item.TARIF} → {item.TARIF_BARU || '—'}</span>
+                          <span className="text-[9px] font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 px-1.5 py-0.25 rounded">{item.TARIF} → {item.TARIF_BARU || '—'}</span>
                         </div>
                         <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate mt-0.5">{item.NAMA}</p>
                       </div>
@@ -367,19 +372,19 @@ export function CalendarPermohonanSurvey({ permohonans = [], surveys = [] }) {
 
             {/* Survey List for selected date */}
             <div className="space-y-2">
-              <h5 className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-                <Activity size={14} /> Survey Lapangan ({selectedSurveys.length})
+              <h5 className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                <Activity size={13} /> Survey Lapangan ({selectedSurveys.length})
               </h5>
               {selectedSurveys.length === 0 ? (
                 <p className="text-xs text-slate-400 dark:text-slate-500 italic px-2">Tidak ada survey</p>
               ) : (
-                <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+                <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
                   {selectedSurveys.map(item => (
-                    <div key={item.IDPEL} className="p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between gap-2 shadow-2xs">
+                    <div key={item.IDPEL} className="p-2 rounded-xl border border-slate-200/80 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between gap-2 shadow-2xs">
                       <div className="min-w-0">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5">
                           <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">{item.IDPEL}</span>
-                          <span className={`text-[10px] font-bold px-1.5 py-0.25 rounded ${
+                          <span className={`text-[9px] font-bold px-1.5 py-0.25 rounded ${
                             item.KESIMPULAN_SPI === 'Efektif'
                               ? 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300'
                               : 'bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300'
