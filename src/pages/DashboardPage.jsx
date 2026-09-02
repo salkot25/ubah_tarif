@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePermohonanData } from '../hooks/usePermohonanData';
+import { getSurveys } from '../services/api';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { PageLoader } from '../components/ui/Spinner';
-import { 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
-  PieChart, Pie, Cell, Legend 
-} from 'recharts';
+import { CalendarPermohonanSurvey } from '../components/dashboard/CalendarPermohonanSurvey';
+import { MediaPermohonanWidget } from '../components/dashboard/MediaPermohonanWidget';
 import { 
   ClipboardList, CheckCircle2, AlertTriangle, Clock, 
   FileText, Activity, Layers, ArrowUpRight, ShieldCheck, Zap,
@@ -14,15 +13,19 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const CHART_COLORS = ['#3b82f6', '#10b981', '#6366f1', '#f59e0b', '#ec4899', '#06b6d4', '#8b5cf6'];
-const SPI_COLORS = { 'Efektif': '#10b981', 'Tidak Efektif': '#ef4444', 'Belum Survey': '#94a3b8' };
-
 export default function DashboardPage() {
   const { permohonans, stats, loading, fetchStats, fetchPermohonans } = usePermohonanData();
+  const [surveysList, setSurveysList] = useState([]);
 
   useEffect(() => {
     fetchStats();
-    fetchPermohonans({ limit: 6, sortBy: 'IDPEL', sortOrder: 'DESC' });
+    fetchPermohonans({ limit: 100, sortBy: 'IDPEL', sortOrder: 'DESC' });
+    
+    getSurveys({ limit: 100 }).then(res => {
+      if (res?.status === 'success') {
+        setSurveysList(res.data || []);
+      }
+    }).catch(console.error);
   }, [fetchStats, fetchPermohonans]);
 
   const pStats = stats?.permohonan || { total: 0, selesai: 0, draft: 0, belum: 0 };
@@ -202,146 +205,18 @@ export default function DashboardPage() {
 
       </div>
 
-      {/* Analytics Visualizations Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Executive Visualizations Section: Kalender Permohonan & Survey AND Saluran Media Permohonan Pelanggan */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         
-        {/* Chart 1: Peruntukan Listrik Pelanggan */}
-        <Card className="p-5 border border-slate-200/90 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
-          <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100 dark:border-slate-800">
-            <div>
-              <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                <Layers size={16} className="text-blue-600 dark:text-blue-400" />
-                Distribusi Peruntukan Listrik Pelanggan
-              </h3>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Klasifikasi sektor penggunaan persil bangunan</p>
-            </div>
-          </div>
-          {peruntukanData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={230}>
-              <BarChart data={peruntukanData} barSize={32}>
-                <defs>
-                  <linearGradient id="barGradientBlue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#3b82f6" stopOpacity={1} />
-                    <stop offset="100%" stopColor="#1d4ed8" stopOpacity={0.85} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#94a3b8', fontWeight: 500 }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} allowDecimals={false} />
-                <Tooltip 
-                  cursor={{ fill: 'rgba(30,41,59,0.4)' }}
-                  contentStyle={{ borderRadius: '14px', border: '1px solid #334155', fontSize: '12px', background: '#1e293b', color: '#f1f5f9', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.3)' }} 
-                />
-                <Bar dataKey="value" fill="url(#barGradientBlue)" radius={[8, 8, 0, 0]} name="Jumlah Pemohon" />
-              </BarChart>
-            </ResponsiveContainer>
-          ) : (
-            <div className="text-center py-14 text-slate-400 dark:text-slate-500 text-xs font-medium">Belum ada data distribusi</div>
-          )}
-        </Card>
+        {/* Left/Main Column: Kalender Permohonan & Survey */}
+        <div className="xl:col-span-2">
+          <CalendarPermohonanSurvey permohonans={permohonans} surveys={surveysList} />
+        </div>
 
-        {/* Chart 2: Kesimpulan SPI Survey */}
-        <Card className="p-5 border border-slate-200/90 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
-          <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100 dark:border-slate-800">
-            <div>
-              <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                <ShieldCheck size={16} className="text-emerald-600 dark:text-emerald-400" />
-                Hasil Kesimpulan SPI Survey Lapangan
-              </h3>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Evaluasi kesesuaian peruntukan vs golongan tarif</p>
-            </div>
-          </div>
-          {spiData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={230}>
-              <PieChart>
-                <Pie
-                  data={spiData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={55}
-                  outerRadius={85}
-                  paddingAngle={4}
-                  dataKey="value"
-                  nameKey="name"
-                  label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                  labelLine={false}
-                >
-                  {spiData.map((entry, i) => (
-                    <Cell key={i} fill={SPI_COLORS[entry.name] || CHART_COLORS[i % CHART_COLORS.length]} stroke="#fff" strokeWidth={2} />
-                  ))}
-                </Pie>
-                <Tooltip contentStyle={{ borderRadius: '14px', border: '1px solid #334155', fontSize: '12px', background: '#1e293b', color: '#f1f5f9' }} />
-                <Legend formatter={(val) => <span className="text-xs text-slate-600 dark:text-slate-300 font-semibold px-1">{val}</span>} />
-              </PieChart>
-            </ResponsiveContainer>
-          ) : (
-            <div className="text-center py-14 text-slate-400 dark:text-slate-500 text-xs font-medium">Belum ada data kesimpulan</div>
-          )}
-        </Card>
-
-        {/* Chart 3: Saluran Media Permohonan */}
-        <Card className="p-5 border border-slate-200/90 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
-          <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100 dark:border-slate-800">
-            <div>
-              <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                <Clock size={16} className="text-indigo-600 dark:text-indigo-400" />
-                Saluran Media Permohonan Pelanggan
-              </h3>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Kanal pendaftaran pengajuan permohonan</p>
-            </div>
-          </div>
-          {mediaData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={210}>
-              <BarChart data={mediaData} layout="vertical" barSize={22}>
-                <defs>
-                  <linearGradient id="barGradientIndigo" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#6366f1" stopOpacity={1} />
-                    <stop offset="100%" stopColor="#4338ca" stopOpacity={0.9} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" horizontal={false} />
-                <XAxis type="number" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} allowDecimals={false} />
-                <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fill: '#94a3b8', fontWeight: 600 }} width={110} axisLine={false} tickLine={false} />
-                <Tooltip contentStyle={{ borderRadius: '14px', border: '1px solid #334155', fontSize: '12px', background: '#1e293b', color: '#f1f5f9' }} />
-                <Bar dataKey="value" fill="url(#barGradientIndigo)" radius={[0, 8, 8, 0]} name="Jumlah Pengajuan" />
-              </BarChart>
-            </ResponsiveContainer>
-          ) : (
-            <div className="text-center py-14 text-slate-400 dark:text-slate-500 text-xs font-medium">Belum ada data media</div>
-          )}
-        </Card>
-
-        {/* Chart 4: Pengajuan Golongan Tarif Baru */}
-        <Card className="p-5 border border-slate-200/90 dark:border-slate-700/80 shadow-sm hover:shadow-md transition-all">
-          <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100 dark:border-slate-800">
-            <div>
-              <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                <ArrowUpRight size={16} className="text-teal-600 dark:text-teal-400" />
-                Pengajuan Golongan Tarif Baru
-              </h3>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Target tarif penyesuaian yang diajukan</p>
-            </div>
-          </div>
-          {tarifBaruData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={210}>
-              <BarChart data={tarifBaruData} barSize={26}>
-                <defs>
-                  <linearGradient id="barGradientTeal" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#14b8a6" stopOpacity={1} />
-                    <stop offset="100%" stopColor="#0f766e" stopOpacity={0.85} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#94a3b8', fontWeight: 500 }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} allowDecimals={false} />
-                <Tooltip contentStyle={{ borderRadius: '14px', border: '1px solid #334155', fontSize: '12px', background: '#1e293b', color: '#f1f5f9' }} />
-                <Bar dataKey="value" fill="url(#barGradientTeal)" radius={[8, 8, 0, 0]} name="Pemohon" />
-              </BarChart>
-            </ResponsiveContainer>
-          ) : (
-            <div className="text-center py-14 text-slate-400 dark:text-slate-500 text-xs font-medium">Belum ada data tarif</div>
-          )}
-        </Card>
+        {/* Right Column: Saluran Media Permohonan Pelanggan */}
+        <div className="xl:col-span-1">
+          <MediaPermohonanWidget mediaData={mediaData} />
+        </div>
 
       </div>
 
