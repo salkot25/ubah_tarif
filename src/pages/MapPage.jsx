@@ -164,7 +164,7 @@ export default function MapPage() {
 
       {/* Floating Bottom Warning for Missing Coordinates */}
       {!loading && surveys.length > markers.length && (
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+        <div className="absolute bottom-16 sm:bottom-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
           <p className="pointer-events-auto text-[10px] md:text-xs font-semibold text-slate-600 dark:text-slate-300 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/90 dark:border-slate-700/90 px-3 py-1 rounded-full shadow-md">
             ⚠️ {surveys.length - markers.length} data survey belum memiliki koordinat GPS
           </p>

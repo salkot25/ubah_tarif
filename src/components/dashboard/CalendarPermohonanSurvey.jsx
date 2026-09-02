@@ -254,17 +254,20 @@ export function CalendarPermohonanSurvey({ permohonans = [], surveys = [] }) {
         </div>
 
         {/* Calendar Grid */}
-        <div className="overflow-x-auto">
-          <div className="min-w-[540px]">
+        <div className="overflow-x-auto -mx-2 px-2 sm:mx-0 sm:px-0">
+          <div className="w-full sm:min-w-[540px]">
             {/* Day Name Header */}
-            <div className="grid grid-cols-7 gap-1 text-center font-extrabold text-[11px] text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">
-              {DAY_NAMES.map(day => (
-                <div key={day} className="py-1">{day}</div>
+            <div className="grid grid-cols-7 gap-1 text-center font-extrabold text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">
+              {DAY_NAMES.map((day, dIdx) => (
+                <div key={day} className="py-1">
+                  <span className="hidden sm:inline">{day}</span>
+                  <span className="sm:hidden">{['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'][dIdx]}</span>
+                </div>
               ))}
             </div>
 
             {/* Grid Cells */}
-            <div className="grid grid-cols-7 gap-1.5">
+            <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
               {calendarDays.map((item, idx) => {
                 const pCount = permohonanByDate[item.ymd]?.length || 0;
                 const sCount = surveyByDate[item.ymd]?.length || 0;
@@ -276,7 +279,7 @@ export function CalendarPermohonanSurvey({ permohonans = [], surveys = [] }) {
                     key={idx}
                     onClick={() => setSelectedDateYMD(item.ymd)}
                     className={`
-                      min-h-[58px] sm:min-h-[64px] p-1.5 sm:p-2 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between relative group
+                      min-h-[48px] sm:min-h-[64px] p-1 sm:p-2 rounded-xl sm:rounded-2xl border transition-all cursor-pointer flex flex-col justify-between relative group
                       ${!item.isCurrentMonth ? 'opacity-30 bg-slate-50/40 dark:bg-slate-900/10 border-transparent' : 'bg-white dark:bg-slate-800/90 border-slate-200/70 dark:border-slate-700/70 hover:border-blue-400 dark:hover:border-blue-500 shadow-2xs'}
                       ${isToday ? 'ring-2 ring-blue-500/70 dark:ring-blue-400/80 font-black' : ''}
                       ${isSelected ? 'bg-blue-50/80 dark:bg-blue-950/50 border-blue-500 dark:border-blue-500 shadow-sm' : ''}
@@ -284,8 +287,8 @@ export function CalendarPermohonanSurvey({ permohonans = [], surveys = [] }) {
                   >
                     {/* Top Bar: Date Number & Today Indicator */}
                     <div className="flex items-center justify-between">
-                      <span className={`text-xs font-bold ${
-                        isToday ? 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/80 w-5 h-5 rounded-full flex items-center justify-center font-black' :
+                      <span className={`text-[11px] sm:text-xs font-bold ${
+                        isToday ? 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/80 w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center font-black' :
                         item.isCurrentMonth ? 'text-slate-800 dark:text-slate-200' : 'text-slate-400 dark:text-slate-600'
                       }`}>
                         {item.dayNum}
@@ -296,18 +299,20 @@ export function CalendarPermohonanSurvey({ permohonans = [], surveys = [] }) {
                     </div>
 
                     {/* Badges Count */}
-                    <div className="space-y-1 mt-1">
+                    <div className="space-y-0.5 mt-0.5 sm:mt-1">
                       {pCount > 0 && (
-                        <div className="bg-blue-100/90 dark:bg-blue-950 text-blue-800 dark:text-blue-300 text-[9px] font-bold px-1.5 py-0.25 rounded-md border border-blue-200/80 dark:border-blue-800/60 truncate flex items-center gap-1">
+                        <div className="bg-blue-100/90 dark:bg-blue-950 text-blue-800 dark:text-blue-300 text-[8px] sm:text-[9px] font-bold px-1 sm:px-1.5 py-0.25 rounded-md border border-blue-200/80 dark:border-blue-800/60 truncate flex items-center justify-center sm:justify-start gap-0.5 sm:gap-1">
                           <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
-                          <span className="truncate">{pCount} Permohonan</span>
+                          <span className="hidden sm:inline truncate">{pCount} Permohonan</span>
+                          <span className="sm:hidden font-extrabold">{pCount}</span>
                         </div>
                       )}
 
                       {sCount > 0 && (
-                        <div className="bg-emerald-100/90 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-[9px] font-bold px-1.5 py-0.25 rounded-md border border-emerald-200/80 dark:border-emerald-800/60 truncate flex items-center gap-1">
+                        <div className="bg-emerald-100/90 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-[8px] sm:text-[9px] font-bold px-1 sm:px-1.5 py-0.25 rounded-md border border-emerald-200/80 dark:border-emerald-800/60 truncate flex items-center justify-center sm:justify-start gap-0.5 sm:gap-1">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-                          <span className="truncate">{sCount} Survey</span>
+                          <span className="hidden sm:inline truncate">{sCount} Survey</span>
+                          <span className="sm:hidden font-extrabold">{sCount}</span>
                         </div>
                       )}
                     </div>
