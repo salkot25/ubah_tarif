@@ -18,11 +18,13 @@ export function Button({
   ...props
 }) {
   const variantClass = {
-    primary:   'btn-primary',
-    secondary: 'btn-secondary',
-    danger:    'btn-danger',
-    ghost:     'btn-ghost',
-    success:   'btn-success',
+    primary:          'btn-primary',
+    secondary:        'btn-secondary',
+    danger:           'btn-danger',
+    ghost:            'btn-ghost',
+    success:          'btn-success',
+    outline:          'btn-outline',
+    'outline-danger': 'btn-outline-danger',
   }[variant] || 'btn-primary';
 
   const sizeClass = {

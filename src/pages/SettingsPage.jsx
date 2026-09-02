@@ -433,10 +433,9 @@ export default function SettingsPage() {
               </Button>
               <Button
                 type="button"
-                variant="outline"
+                variant="outline-danger"
                 icon={Trash2}
                 onClick={() => setClearAllTtdModalOpen(true)}
-                className="text-red-600 dark:text-red-400 border-red-200 dark:border-red-900/60 hover:bg-red-50 dark:hover:bg-red-950/40 hover:border-red-300 dark:hover:border-red-700"
               >
                 Hapus Semua TTD
               </Button>
