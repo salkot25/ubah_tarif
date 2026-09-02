@@ -1,0 +1,61 @@
+{
+  "name": "Survey Lokasi PLN — SALKOT Ubah Tarif",
+  "short_name": "Survey PLN",
+  "description": "Sistem Enterprise Verifikasi Survey Lokasi & Perubahan Tarif PLN SALKOT (Offline Ready)",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f172a",
+  "theme_color": "#1d4ed8",
+  "lang": "id",
+  "dir": "ltr",
+  "categories": [
+    "business",
+    "utilities",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "./pwa-icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Data Permohonan",
+      "short_name": "Permohonan",
+      "description": "Kelola Berkas Permohonan Ubah Tarif",
+      "url": "./#/permohonan",
+      "icons": [{ "src": "./pwa-icon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Survey Lapangan",
+      "short_name": "Survey",
+      "description": "Form BA & Hasil Survey Lapangan",
+      "url": "./#/survey",
+      "icons": [{ "src": "./pwa-icon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Peta Sebaran",
+      "short_name": "Peta",
+      "description": "Peta Titik Lokasi Survey",
+      "url": "./#/peta",
+      "icons": [{ "src": "./pwa-icon.svg", "sizes": "192x192" }]
+    }
+  ]
+}
