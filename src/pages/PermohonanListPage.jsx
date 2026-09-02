@@ -1179,6 +1179,12 @@ function LiveChangeTarifSheet({ formData, appliancesRT = [], appliancesPL = [], 
   const pejabatAsman = localStorage.getItem('SETTING_ASMAN') || 'MUHAMAD ALWI SOFIAN';
   const pejabatMulp = localStorage.getItem('SETTING_MULP') || 'ARIF SETYAWAN';
   const pejabatTl = localStorage.getItem('SETTING_TL') || 'FATHUR ROHIM';
+  const petugasSurvey = localStorage.getItem('SETTING_PETUGAS_SURVEY') || pejabatTl;
+  const ttdMup3 = localStorage.getItem('SETTING_TTD_MUP3') || '';
+  const ttdAsman = localStorage.getItem('SETTING_TTD_ASMAN') || '';
+  const ttdMulp = localStorage.getItem('SETTING_TTD_MULP') || '';
+  const ttdTl = localStorage.getItem('SETTING_TTD_TL') || '';
+  const ttdPetugas = localStorage.getItem('SETTING_TTD_PETUGAS_SURVEY') || '';
 
   const formatDayaText = (val) => {
     if (!val && val !== 0) return '';
